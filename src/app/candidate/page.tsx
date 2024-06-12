@@ -10,14 +10,21 @@ const CandidateDashboard = async () => {
   if (!session?.user) redirect("/");
   return (
     <div>
-      <h1>{session?.user?.name}</h1>
-      <Image
-        src={session?.user?.image!}
-        alt={session?.user?.name!}
-        width={72}
-        height={72}
-        className="rounded-full"
-      />
+      {session?.user?.image && session?.user?.name ? (
+        <>
+          <h1>Hello {session?.user?.name}!</h1>
+          <Image
+            src={session?.user?.image!}
+            alt={session?.user?.name!}
+            width={72}
+            height={72}
+            className="rounded-full"
+          />
+        </>
+      ) : (
+        <h1>Welcome, {session?.user?.email}</h1>
+      )}
+
       <Logout />
     </div>
   );
