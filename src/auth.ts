@@ -6,11 +6,6 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { Candidate } from "./model/candidate-model";
 import bcrypt from "bcrypt";
 
-interface Credentials {
-  email: string;
-  password: string;
-}
-
 export const {
   handlers: { GET, POST },
   auth,
