@@ -3,8 +3,13 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import { getUserByEmail } from "./data/users";
-import { error } from "console";
+import { Candidate } from "./model/candidate-model";
+import bcrypt from "bcrypt";
+
+interface Credentials {
+  email: string;
+  password: string;
+}
 
 export const {
   handlers: { GET, POST },
@@ -12,6 +17,7 @@ export const {
   signIn,
   signOut,
 } = NextAuth({
+  secret: process.env.AUTH_SECRET,
   session: {
     strategy: "jwt",
   },
@@ -20,9 +26,15 @@ export const {
       async authorize(credentials) {
         if (credentials === null) return null;
         try {
-          const user = getUserByEmail(credentials?.email as string);
+          const user = await Candidate.findOne({
+            email: credentials?.email,
+          });
           if (user) {
-            const isMatch = user?.password === credentials?.password;
+            const isMatch = await bcrypt.compare(
+              credentials.password as string,
+              user.password
+            );
+
             if (isMatch) {
               return user;
             } else {

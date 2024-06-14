@@ -12,7 +12,7 @@ const LoginForm = () => {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  async function handleFormSubmit(event: any) {
+  async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     try {
