@@ -1,6 +1,6 @@
 import mongoose, { Schema, mongo } from "mongoose";
 
-const candidateSchema = new Schema({
+const userSchema = new Schema({
   name: {
     required: true,
     type: String,
@@ -13,7 +13,11 @@ const candidateSchema = new Schema({
     required: true,
     type: String,
   },
+  role: {
+    required: true,
+    type: String,
+    enum: ["candidate", "employer"],
+  },
 });
 
-export const Candidate =
-  mongoose.models.Candidate ?? mongoose.model("Candidate", candidateSchema);
+export const User = mongoose.models.User ?? mongoose.model("User", userSchema);

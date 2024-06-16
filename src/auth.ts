@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import { Candidate } from "./model/candidate-model";
+import { User } from "./model/user-model";
 import bcrypt from "bcrypt";
 
 export const {
@@ -21,7 +21,7 @@ export const {
       async authorize(credentials) {
         if (credentials === null) return null;
         try {
-          const user = await Candidate.findOne({
+          const user = await User.findOne({
             email: credentials?.email,
           });
           if (user) {

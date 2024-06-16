@@ -1,10 +1,10 @@
 //where model and DB is getting connected
 
-import { Candidate } from "@/model/candidate-model";
+import { User } from "@/model/user-model";
 
-export async function createCandidate(candidate: any) {
+export async function createUser(newUser: any) {
   try {
-    const user = await Candidate.create(candidate);
+    const user = await User.create(newUser);
   } catch (e) {
     throw e;
   }

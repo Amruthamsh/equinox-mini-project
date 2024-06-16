@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createCandidate } from "@/queries/users";
+import { createUser } from "@/queries/users";
 import bcrypt from "bcrypt";
 import { dbConnect } from "@/lib/mongo";
 
@@ -15,15 +15,16 @@ export const POST = async (request: NextRequest) => {
   const hashedPassword = await bcrypt.hash(password, 5);
 
   //form a db payload
-  const newCandidate = {
+  const newUser = {
     name,
     password: hashedPassword,
     email,
+    role: "candidate",
   };
 
   //update this db
   try {
-    await createCandidate(newCandidate);
+    await createUser(newUser);
   } catch (err: any) {
     return new NextResponse(err.message, { status: 500 });
   }
