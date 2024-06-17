@@ -1,6 +1,15 @@
-import mongoose, { Schema, mongo } from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import { StaticImport } from "next/dist/shared/lib/get-img-props";
 
-const userSchema = new Schema({
+export interface UserType {
+  name: string;
+  password: String;
+  email: String;
+  role: String;
+  image: string | StaticImport;
+}
+
+const userSchema = new Schema<UserType>({
   name: {
     required: true,
     type: String,
@@ -13,6 +22,9 @@ const userSchema = new Schema({
     required: true,
     type: String,
   },
+  image: {
+    type: String,
+  },
   role: {
     required: true,
     type: String,
@@ -20,4 +32,5 @@ const userSchema = new Schema({
   },
 });
 
-export const User = mongoose.models.User ?? mongoose.model("User", userSchema);
+export const User =
+  mongoose.models.User ?? mongoose.model<UserType>("User", userSchema);

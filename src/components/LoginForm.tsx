@@ -21,7 +21,9 @@ const LoginForm = () => {
       if (!!response.error) {
         setError(response.error.message);
       } else {
-        router.push("/candidate");
+        console.log(response);
+        if (response.role === "candidate") router.push("/candidate");
+        else router.push("/candidate");
       }
     } catch (e) {
       console.error(e);
@@ -43,7 +45,6 @@ const LoginForm = () => {
         </div>
         <button type="submit">Credential Login</button>
       </form>
-      <SocialLogin />
     </>
   );
 };

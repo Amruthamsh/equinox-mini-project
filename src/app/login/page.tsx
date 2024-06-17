@@ -8,7 +8,8 @@ export default function Page() {
       <LoginForm />
       <p>
         Don't have an account?
-        <Link href="register">Register</Link>
+        <Link href="register/candidate">Find Jobs. </Link>
+        <Link href="register/employer">Hire.</Link>
       </p>
     </main>
   );

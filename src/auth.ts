@@ -3,7 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-import { User } from "./model/user-model";
+import { User, UserType } from "./model/user-model";
 import bcrypt from "bcrypt";
 
 export const {
@@ -24,6 +24,7 @@ export const {
           const user = await User.findOne({
             email: credentials?.email,
           });
+
           if (user) {
             const isMatch = await bcrypt.compare(
               credentials.password as string,
@@ -68,4 +69,14 @@ export const {
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      console.log("user", user);
+      return { user };
+    },
+    async session({ session, user, token }) {
+      console.log("session", session);
+      return session;
+    },
+  },
 });

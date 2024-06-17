@@ -4,9 +4,9 @@ import bcrypt from "bcrypt";
 import { dbConnect } from "@/lib/mongo";
 
 export const POST = async (request: NextRequest) => {
-  const { name, email, password } = await request.json();
+  const { name, email, password, role } = await request.json();
 
-  console.log(name, email, password);
+  console.log(name, email, password, role);
 
   //create a db connection
   await dbConnect();
@@ -19,7 +19,7 @@ export const POST = async (request: NextRequest) => {
     name,
     password: hashedPassword,
     email,
-    role: "candidate",
+    role,
   };
 
   //update this db
