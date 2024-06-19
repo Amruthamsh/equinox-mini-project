@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongo";
 import { Employer } from "@/models/employer-model";
 import { Types } from "mongoose";
-import { request } from "http";
+
 
 export const GET = async (
   request: Request,
