@@ -3,17 +3,19 @@ import {
   getKindeServerSession,
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/server";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const page = async () => {
-  const { getUser, isAuthenticated, getOrganization } = getKindeServerSession();
+  const { getUser, isAuthenticated } = getKindeServerSession();
   const isLoggedIn = await isAuthenticated();
 
   if (!isLoggedIn) redirect("/api/auth/login");
+
+  //check if user exists in database, else display a form to fill to register for first time users
+
+  //check if user role from database is Candidate
+
   const user = await getUser();
-  const organization = await getOrganization();
-  if (organization?.orgName !== "Candidates") redirect("/");
 
   return (
     <>

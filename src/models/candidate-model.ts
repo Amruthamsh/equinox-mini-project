@@ -27,6 +27,6 @@ const candidateProfileSchema = new Schema({
   },
 });
 
-export const Job =
+export const Candidate =
   mongoose.models.CandidateProfile ??
   mongoose.model("CandidateProfile", candidateProfileSchema);
