@@ -1,7 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
 const candidateProfileSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId, ref: "User", required: true },
   resume: { type: String }, // resume in string format
   skills: [{ type: String }],
   experience: [
@@ -25,6 +24,7 @@ const candidateProfileSchema = new Schema({
     jobType: { type: String, enum: ["full-time", "part-time", "contract"] },
     industries: [{ type: String }],
   },
+  kindeAuthId: { type: String, required: true },
 });
 
 export const Candidate =

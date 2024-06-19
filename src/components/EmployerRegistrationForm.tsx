@@ -5,7 +5,7 @@ import {
   getKindeServerSession,
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import { dbConnect } from "@/lib/mongo";
-import Employer from "@/models/Employer";
+import { Employer } from "@/models/employer-model";
 
 const EmployerRegistrationForm = async () => {
   const { getUser, isAuthenticated } = getKindeServerSession();
@@ -39,9 +39,10 @@ const EmployerRegistrationForm = async () => {
 
       const newEmployer = new Employer(body);
       await newEmployer.save();
-      redirect("/employer");
     } catch (error) {
       console.error("Error in creating employee", error);
+    } finally {
+      redirect("/dashboard/employer");
     }
   }
 
