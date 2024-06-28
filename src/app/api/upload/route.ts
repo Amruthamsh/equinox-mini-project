@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
   pdfParser.on("pdfParser_dataReady", (pdfData) => {
     const text = pdfData.Pages.map((page) =>
       page.Texts.map((text) => text.R[0].T).join("")
-    ).join(""); // Extract text from the PDF
-    console.log(text); // Console log the text in the PDF
+    ).join("");
+    console.log(text);
   });
 
   fs.readFile(path, (err, pdfBuffer) => {
