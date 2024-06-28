@@ -9,7 +9,8 @@ export const gridItems = [
   {
     id: 1,
     title: "Our Vision",
-    description: "We aim to revolutionize employment by connecting job seekers and employers meaningfully and instantly.",
+    description:
+      "We aim to revolutionize employment by connecting job seekers and employers meaningfully and instantly.",
     className: "lg:col-span-3 md:col-span-6 md:row-span-4 lg:min-h-[60vh]",
     imgClassName: "w-full h-full",
     titleClassName: "justify-end",
@@ -29,7 +30,8 @@ export const gridItems = [
   {
     id: 3,
     title: "Our Core Values",
-    description: "Integrity Innovation Diversity and Inclusion Customer-Centric",
+    description:
+      "Integrity Innovation Diversity and Inclusion Customer-Centric",
     className: "lg:col-span-2 md:col-span-3 md:row-span-1 lg:row-span-1",
     imgClassName: "",
     titleClassName: "justify-center",
@@ -39,7 +41,8 @@ export const gridItems = [
   {
     id: 4,
     title: "Who We Are",
-    description: "We are innovators and career experts dedicated to transforming job search and hiring.",
+    description:
+      "We are innovators and career experts dedicated to transforming job search and hiring.",
     className: "lg:col-span-3 md:col-span-3 md:row-span-1",
     imgClassName: "",
     titleClassName: "justify-center",
@@ -50,7 +53,8 @@ export const gridItems = [
   {
     id: 5,
     title: "What We Offer",
-    description: "Personalized Job Matching Intuitive Interface Comprehensive Profiles Secure and Confidential 24/7 Support",
+    description:
+      "Personalized Job Matching Intuitive Interface Comprehensive Profiles Secure and Confidential 24/7 Support",
     className: "md:col-span-3 md:row-span-1",
     imgClassName: "absolute right-0 bottom-0 md:w-96 w-60",
     titleClassName: "justify-center md:justify-start lg:justify-center",
@@ -68,7 +72,6 @@ export const gridItems = [
     spareImg: "",
   },
 ];
-
 
 export const projects = [
   {
