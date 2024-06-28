@@ -36,7 +36,7 @@ const Hero = () => {
              className="w-full h-full"
              particleColor="#FFFFFF"
             />
-            <div className="absolute inset-0 w-full h-full dark:bg-black-100 [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
+            <div className="absolute inset-0 w-full h-full dark:bg-black-100 [mask-image:radial-gradient(350px_200px_at_top,transparent_90%,white)]"></div>
           </div>
         </div>
         </div>
