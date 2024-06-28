@@ -9,7 +9,7 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/dist/types/s
 
 const Navbar = () => {
   return (
-    <div className="flex flex-row place-items-end gap-x-96 my-2 z-10">
+    <div className="flex flex-row place-content-between my-2 z-10">
       <div className="max-w-[70vw] md:max-w-1xl lg:max-w-[40vw] justify-start flex gap-20 cursor-pointer ">
         <div>About us</div>
         <div>Contact us</div>
