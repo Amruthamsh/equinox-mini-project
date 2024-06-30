@@ -1,4 +1,5 @@
 import About from "@/components/About";
+import Contact from "@/components/Contact";
 import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import { FaHome } from "react-icons/fa";
@@ -13,6 +14,7 @@ export default function Home() {
         <Navbar />
         <Hero />
         <About />
+        <Contact/>
       </div>
     </main>
   );
