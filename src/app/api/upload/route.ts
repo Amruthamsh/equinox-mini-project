@@ -24,9 +24,9 @@ export async function POST(request: NextRequest) {
     console.error(errData.parserError)
   );
   pdfParser.on("pdfParser_dataReady", (pdfData) => {
-    const text = pdfData.Pages.map((page) =>
-      page.Texts.map((text) => text.R[0].T).join("")
-    ).join("");
+    const text = pdfData.Pages.map((page) => {
+      return page.Texts.map((text) => decodeURIComponent(text.R[0].T)).join("");
+    }).join("");
     console.log(text);
   });
 
