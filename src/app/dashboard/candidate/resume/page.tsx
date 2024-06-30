@@ -2,9 +2,20 @@
 
 import React, { useState } from "react";
 
+interface ResumeDetails {
+  title: string;
+  summary: string;
+  education: string[];
+  skills: string[];
+  experience: string[];
+}
+
 export default function Page() {
   const [file, setFile] = useState<File | null>(null);
   const [pdfText, setPdfText] = useState<string | null>(null);
+  const [resumeDetails, setResumeDetails] = useState<ResumeDetails | null>(
+    null
+  );
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,6 +45,38 @@ export default function Page() {
     }
   };
 
+  const generateResumeDetails = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!pdfText) return;
+
+    try {
+      const res = await fetch("/api/hf", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          type: "resume",
+          text: pdfText,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error(await res.text());
+      }
+
+      const result = await res.json();
+      console.log(result);
+      if (result.success) {
+        setResumeDetails(result); // Store the PDF text in state
+      } else {
+        console.error("Failed to parse PDF");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+    }
+  };
+
   return (
     <div className="h-fit">
       <form onSubmit={onSubmit} className="mb-4">
@@ -49,6 +92,15 @@ export default function Page() {
           value="Upload"
         />
       </form>
+
+      <form onSubmit={generateResumeDetails}>
+        <input
+          type="submit"
+          value="Generate Resume Details"
+          className="bg-black-300 p-1 rounded-sm"
+        ></input>
+      </form>
+
       {pdfText && (
         <div className="overflow-auto max-h-full p-4 border border-gray-400 rounded">
           <h2 className="text-lg font-bold mb-2">PDF Text:</h2>

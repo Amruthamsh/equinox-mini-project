@@ -14,8 +14,7 @@ export async function POST(request: NextRequest) {
 
   try {
     const pdfData = await pdf(buffer);
-    const text = pdfData.text;
-    console.log(parseResume(text));
+    const text = pdfData.text.replace(/[^a-zA-Z0-9\s.,;:&%'"!?()-]/g, "");
     return NextResponse.json({ success: true, text });
   } catch (error) {
     console.error("Error parsing PDF:", error);
@@ -24,7 +23,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Function to parse the resume text
-function parseResume(text: String) {
+function parseResumeBasic(text: String) {
   const sections = text.split("\n\n");
   const resume = {
     summary: "",
