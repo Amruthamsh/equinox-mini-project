@@ -3,9 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
-import { FaFontAwesome, FaHome, FaLaptop } from "react-icons/fa";
+import { FaHome, FaLaptop } from "react-icons/fa";
 import { IoDocument, IoSchool } from "react-icons/io5";
-import { IconBase } from "react-icons";
 
 const links = [
   { name: "Home", href: "/dashboard/candidate", icon: <FaHome size={24} /> },

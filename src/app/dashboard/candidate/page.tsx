@@ -21,7 +21,7 @@ const getCandidateDetails = async (kindeId: String) => {
 
     const candidate = await response.json();
 
-    console.log("Employer details:", candidate);
+    console.log("Candidate details:", candidate);
 
     return candidate;
   } catch (error) {
