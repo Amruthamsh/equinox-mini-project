@@ -16,6 +16,7 @@ export const GET = async (
       );
     }
     await dbConnect();
+
     const candidate = await Candidate.findOne({
       kindeAuthId: params.kindeId,
     });
