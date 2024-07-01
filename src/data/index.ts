@@ -143,67 +143,70 @@ export const testimonials = [
 
 export const jobs = [
   {
-    id: '1', 
-    title: 'Software Engineer', 
-    description: 'We are seeking a skilled Software Engineer...', 
-    skills: 'JavaScript, Python, React', 
-    experience: 3, 
-    image: '/exp1.svg', 
-    candidateName: 'John Doe', 
-    candidateSummary: "Hi, I'm John Doe, a full-stack developer...", 
-    candidateImage: '/exp1.svg',
+    id: "1",
+    title: "Software Engineer",
+    description: "We are seeking a skilled Software Engineer...",
+    skills: "JavaScript, Python, React",
+    experience: 3,
+    image: "/exp1.svg",
+    candidateName: "John Doe",
+    candidateSummary: "Hi, I'm John Doe, a full-stack developer...",
+    candidateImage: "/exp1.svg",
   },
   {
-    id: '2', 
-    title: 'Marketing Manager', 
-    description: 'We are seeking an experienced Marketing Manager to develop and implement marketing strategies that will drive growth and brand awareness. The ideal candidate will have a proven track record in marketing, excellent leadership skills, and the ability to work in a fast-paced environment.', 
-    skills: 'Python, TensorFlow, PyTorch', 
-    experience: 4, 
-    image: '/exp4.svg', 
-    candidateName: 'Emily Johnson', 
-    candidateSummary: "My name is Emily Johnson, and I have 6 years of experience in AI...", 
-    candidateImage: '/exp4.svg',
-  
+    id: "2",
+    title: "Marketing Manager",
+    description:
+      "We are seeking an experienced Marketing Manager to develop and implement marketing strategies that will drive growth and brand awareness. The ideal candidate will have a proven track record in marketing, excellent leadership skills, and the ability to work in a fast-paced environment.",
+    skills: "Python, TensorFlow, PyTorch",
+    experience: 4,
+    image: "/exp4.svg",
+    candidateName: "Emily Johnson",
+    candidateSummary:
+      "My name is Emily Johnson, and I have 6 years of experience in AI...",
+    candidateImage: "/exp4.svg",
   },
   {
-    id: '3', 
-    title: 'Project Manager', 
-    description: 'We are looking for a highly organized and motivated Project Manager to lead and manage projects from inception to completion. The ideal candidate will be responsible for planning, executing, and overseeing projects to ensure they are completed on time and within budget.', 
-    skills: 'Python, TensorFlow, PyTorch', 
-    experience: 4, 
-    image: '/exp4.svg', 
-    candidateName: 'Emily Johnson', 
-    candidateSummary: "My name is Emily Johnson, and I have 6 years of experience in AI...", 
-    candidateImage: '/exp4.svg',
-  
+    id: "3",
+    title: "Project Manager",
+    description:
+      "We are looking for a highly organized and motivated Project Manager to lead and manage projects from inception to completion. The ideal candidate will be responsible for planning, executing, and overseeing projects to ensure they are completed on time and within budget.",
+    skills: "Python, TensorFlow, PyTorch",
+    experience: 4,
+    image: "/exp4.svg",
+    candidateName: "Emily Johnson",
+    candidateSummary:
+      "My name is Emily Johnson, and I have 6 years of experience in AI...",
+    candidateImage: "/exp4.svg",
   },
   {
-    id: '4', 
-    title: 'Human Resources Specialist', 
-    description: 'We are looking for a dedicated Human Resources Specialist to join our HR team. The ideal candidate will handle recruitment, employee relations, performance management, and compliance with labor laws and regulations.', 
-    skills: 'Python, TensorFlow, PyTorch', 
-    experience: 4, 
-    image: '/exp4.svg', 
-    candidateName: 'Emily Johnson', 
-    candidateSummary: "My name is Emily Johnson, and I have 6 years of experience in AI...", 
-    candidateImage: '/exp4.svg',
-  
+    id: "4",
+    title: "Human Resources Specialist",
+    description:
+      "We are looking for a dedicated Human Resources Specialist to join our HR team. The ideal candidate will handle recruitment, employee relations, performance management, and compliance with labor laws and regulations.",
+    skills: "Python, TensorFlow, PyTorch",
+    experience: 4,
+    image: "/exp4.svg",
+    candidateName: "Emily Johnson",
+    candidateSummary:
+      "My name is Emily Johnson, and I have 6 years of experience in AI...",
+    candidateImage: "/exp4.svg",
   },
   {
-    id: '5', 
-    title: 'AI Specialist', 
-    description: 'We are seeking an AI Specialist...', 
-    skills: 'Python, TensorFlow, PyTorch', 
-    experience: 4, 
-    image: '/exp4.svg', 
-    candidateName: 'Emily Johnson', 
-    candidateSummary: "My name is Emily Johnson, and I have 6 years of experience in AI...", 
-    candidateImage: '/exp4.svg',
-  
+    id: "5",
+    title: "AI Specialist",
+    description: "We are seeking an AI Specialist...",
+    skills: "Python, TensorFlow, PyTorch",
+    experience: 4,
+    image: "/exp4.svg",
+    candidateName: "Emily Johnson",
+    candidateSummary:
+      "My name is Emily Johnson, and I have 6 years of experience in AI...",
+    candidateImage: "/exp4.svg",
   },
 ];
 
-export const getJobDetailsById = (id) => jobs.find(job => job.id === id);
+export const getJobDetailsById = (id) => jobs.find((job) => job.id === id);
 
 export const workExperience = [
   {

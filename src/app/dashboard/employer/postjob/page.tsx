@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 function page() {
   return (
@@ -65,10 +66,16 @@ function page() {
           />
         </div>
 
-        <div className="flex justify-center">
+        <div className="flex place-content-center gap-5">
+          <Link
+            href="/dashboard/employer"
+            className="px-4 py-2 w-32 justify-end rounded-md bg-slate-800 text-white text-center font-medium"
+          >
+            Cancel
+          </Link>
           <button
             type="submit"
-            className="px-4 py-2 w-32 place-content-center rounded-md bg-blue-500 text-black font-medium"
+            className="px-4 py-2 w-32 justify-start rounded-md bg-indigo-800 text-white font-medium"
           >
             Submit
           </button>

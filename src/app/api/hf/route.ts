@@ -46,9 +46,9 @@ Answer:
         max_tokens: 1000,
       });
 
-      console.log(out.choices[0].message.content);
+      const resumeDetails = JSON.parse(out.choices[0].message.content);
 
-      return NextResponse.json({ status: 200 });
+      return NextResponse.json({ success: true, resumeDetails });
     } else {
       return NextResponse.json({ error: "Invalid type" }, { status: 400 });
     }

@@ -8,6 +8,7 @@ interface ResumeDetails {
   education: string[];
   skills: string[];
   experience: string[];
+  years_of_experience: number;
 }
 
 export default function Page() {
@@ -66,9 +67,8 @@ export default function Page() {
       }
 
       const result = await res.json();
-      console.log(result);
       if (result.success) {
-        setResumeDetails(result); // Store the PDF text in state
+        setResumeDetails(result.resumeDetails); // Update resume details state
       } else {
         console.error("Failed to parse PDF");
       }
@@ -105,6 +105,48 @@ export default function Page() {
         <div className="overflow-auto max-h-full p-4 border border-gray-400 rounded">
           <h2 className="text-lg font-bold mb-2">PDF Text:</h2>
           <pre className="whitespace-pre-wrap text-white-200">{pdfText}</pre>
+        </div>
+      )}
+
+      {resumeDetails && (
+        <div className="overflow-auto mt-8 max-h-full p-4 border border-gray-400 rounded">
+          <h2 className="text-lg font-bold mb-2">Resume Details:</h2>
+          <div className="mb-4">
+            <h3 className="font-bold">Title:</h3>
+            <p>{resumeDetails.title}</p>
+          </div>
+          <div className="mb-4">
+            <h3 className="font-bold">Summary:</h3>
+            <p>{resumeDetails.summary}</p>
+          </div>
+          <div className="mb-4">
+            <h3 className="font-bold">Education:</h3>
+            <ul>
+              {resumeDetails.education.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="mb-4">
+            <h3 className="font-bold">Skills:</h3>
+            <ul>
+              {resumeDetails.skills.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="mb-4">
+            <h3 className="font-bold">Experience:</h3>
+            <ul>
+              {resumeDetails.experience.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="mb-4">
+            <h3 className="font-bold">Years of Experience:</h3>
+            <p>{resumeDetails.years_of_experience}</p>
+          </div>
         </div>
       )}
     </div>

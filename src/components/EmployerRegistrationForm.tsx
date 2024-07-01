@@ -6,13 +6,11 @@ import {
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import { dbConnect } from "@/lib/mongo";
 import { Employer } from "@/models/employer-model";
+import User from "@/models/user-model";
 
 const EmployerRegistrationForm = async () => {
-  const { getUser, isAuthenticated } = getKindeServerSession();
-  const isLoggedIn = await isAuthenticated();
+  const { getUser } = getKindeServerSession();
 
-  if (!isLoggedIn)
-    redirect("/api/auth/login?post_login_redirect_url=/register/employer");
   const user = await getUser();
 
   async function handleSubmit(formData: FormData) {
@@ -21,6 +19,7 @@ const EmployerRegistrationForm = async () => {
     try {
       await dbConnect();
 
+      //Create Employer
       const employer = await Employer.findOne({
         kindeAuthId: user?.id,
       });
@@ -39,41 +38,85 @@ const EmployerRegistrationForm = async () => {
 
       const newEmployer = new Employer(body);
       await newEmployer.save();
+
+      //Create User
+      const userBody = {
+        role: "employer",
+        kindeAuthId: user.id!,
+      };
+      const newUser = new User(userBody);
+      await newUser.save();
     } catch (error) {
       console.error("Error in creating employee", error);
-    } finally {
-      redirect("/dashboard/employer");
     }
+
+    redirect("/");
   }
 
   return (
-    <>
-      <h1>Register for Equinox as an Employer</h1>
+    <div className="mx-auto max-w-2xl px-4 my-10">
+      <h1 className="text-center text-2xl">
+        Register for Equinox as an Employer
+      </h1>
       <form action={handleSubmit}>
-        <div>
+        <div className="w-full flex flex-col my-4">
           <label htmlFor="name">Company Name</label>
-          <input type="name" name="companyName" id="companyName" />
+          <input
+            type="name"
+            name="companyName"
+            id="companyName"
+            className="bg-white text-black-100 rounded-md p-2"
+          />
         </div>
-        <div>
+        <div className="w-full flex flex-col my-4">
           <label htmlFor="url">Company Website</label>
-          <input type="url" name="companyWebsite" id="companyWebsite" />
+          <input
+            type="url"
+            name="companyWebsite"
+            id="companyWebsite"
+            className="bg-white text-black-100 rounded-md p-2"
+          />
         </div>
-        <div>
+        <div className="w-full flex flex-col my-4">
           <label htmlFor="number">Company Size</label>
-          <input type="number" name="companySize" id="companySize" />
+          <input
+            type="number"
+            name="companySize"
+            id="companySize"
+            className="bg-white text-black-100 rounded-md p-2"
+          />
         </div>
-        <div>
+        <div className="w-full flex flex-col my-4">
           <label htmlFor="name">Industry</label>
-          <input type="name" name="industry" id="industry" />
+          <input
+            type="name"
+            name="industry"
+            id="industry"
+            className="bg-white text-black-100 rounded-md p-2"
+          />
         </div>
-        <div>
+        <div className="w-full flex flex-col my-4">
           <label htmlFor="name">Location</label>
-          <input type="name" name="location" id="location" />
+          <input
+            type="name"
+            name="location"
+            id="location"
+            className="bg-white text-black-100 rounded-md p-2"
+          />
         </div>
-        <button type="submit">Register</button>
+        <div className="flex place-content-center gap-5">
+          <LogoutLink className="px-4 py-2 w-32 justify-end rounded-md bg-slate-800 text-white text-center font-medium">
+            Cancel
+          </LogoutLink>
+          <button
+            type="submit"
+            className="px-4 py-2 w-32 justify-start rounded-md bg-indigo-800 text-white font-medium"
+          >
+            Submit
+          </button>
+        </div>
       </form>
-      <LogoutLink>Logout</LogoutLink>
-    </>
+    </div>
   );
 };
 

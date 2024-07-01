@@ -1,41 +1,19 @@
 import React from "react";
 import Link from "next/link";
+import HomePageSignIn from "./HomePageSignIn";
 
-import {
-  RegisterLink,
-  LoginLink,
-} from "@kinde-oss/kinde-auth-nextjs/components";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/dist/types/server";
+type Props = {};
 
-type Props ={};
-
-const Navbar = ({}:Props) => {
+const Navbar = ({}: Props) => {
   return (
     <nav className="sticky-navbar top-0 left-0">
-    <div className="flex flex-row place-content-between my-2 z-10">
-      <div className="max-w-[70vw] md:max-w-1xl lg:max-w-[40vw] justify-start flex gap-20 cursor-pointer ">
-        <Link href={'#about'}>About us</Link>
-        <Link href={'#contact'}>Contact us</Link>
-      </div>
-      <div className="max-w-[65vw] md:max-w-1xl lg:max-w-[40vw] flex justify-end gap-20 cursor-pointer">
-        <div className="relative inline-flex h-8 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-          <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-          <span className="inline-flex z-10 h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
-            <LoginLink postLoginRedirectURL="/dashboard/candidate">
-              Candidate Sign in
-            </LoginLink>
-          </span>
+      <div className="flex flex-row place-content-between my-4 z-10">
+        <div className="max-w-[70vw] md:max-w-1xl lg:max-w-[40vw] justify-start flex gap-20 cursor-pointer ">
+          <Link href={"#about"}>About us</Link>
+          <Link href={"#contact"}>Contact us</Link>
         </div>
-        <div className="relative inline-flex h-8 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-          <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-          <span className="inline-flex z-10 h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
-            <LoginLink postLoginRedirectURL="/dashboard/employer">
-              Employer Sign in
-            </LoginLink>
-          </span>
-        </div>
+        <HomePageSignIn />
       </div>
-    </div>
     </nav>
   );
 };

@@ -24,7 +24,7 @@ const candidateProfileSchema = new Schema({
     jobType: { type: String, enum: ["full-time", "part-time", "contract"] },
     industries: [{ type: String }],
   },
-  kindeAuthId: { type: String, required: true },
+  kindeAuthId: { type: String, required: true, unique: true },
 });
 
 export const Candidate =

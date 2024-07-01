@@ -4,7 +4,9 @@ import {
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import { createCandidateProfile } from "@/components/CandidateRegistration";
+import { dbConnect } from "@/lib/mongo";
+import { Candidate } from "@/models/candidate-model";
+import User from "@/models/user-model";
 
 const getCandidateDetails = async (kindeId: String) => {
   try {
@@ -31,15 +33,40 @@ const getCandidateDetails = async (kindeId: String) => {
 };
 
 const page = async () => {
-  const { getUser, isAuthenticated } = getKindeServerSession();
-  const isLoggedIn = await isAuthenticated();
+  const { getUser } = getKindeServerSession();
 
-  if (!isLoggedIn) redirect("/api/auth/login");
   const user = await getUser();
 
+  const createCandidateProfile = async () => {
+    await dbConnect();
+    //check if the user doesn't already have an entry in User Table
+    const existingUser = await User.findOne({
+      kindeAuthId: user?.id!,
+    });
+    if (existingUser) {
+      redirect("/");
+    }
+
+    if (user.id) {
+      //Create User
+      console.log("creating User");
+      const userBody = {
+        role: "candidate",
+        kindeAuthId: user.id,
+      };
+      const newUser = new User(userBody);
+      await newUser.save();
+    }
+
+    //Create Candidate
+    const candidateBody = { kindeAuthId: user?.id! };
+    const newCandidate = new Candidate(candidateBody);
+    await newCandidate.save();
+    return newCandidate;
+  };
+
   const candidate =
-    (await getCandidateDetails(user?.id!)) ||
-    (await createCandidateProfile(user?.id!));
+    (await getCandidateDetails(user?.id!)) || (await createCandidateProfile());
 
   return (
     <>
