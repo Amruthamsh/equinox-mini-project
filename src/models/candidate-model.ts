@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 const candidateProfileSchema = new Schema({
-  resume: { type: String }, // resume in string format
+  resume_str: { type: String }, // resume in string format
   skills: [{ type: String }],
   experience: [
     {
