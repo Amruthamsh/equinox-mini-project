@@ -2,21 +2,20 @@ import mongoose, { Schema } from "mongoose";
 
 const candidateProfileSchema = new Schema({
   resume_str: { type: String }, // resume in string format
+  title: String,
   skills: [{ type: String }],
+  summary: String,
   experience: [
     {
-      company: String,
-      position: String,
-      startDate: Date,
-      endDate: Date,
+      description: String,
+      startDate: String,
+      endDate: String,
     },
   ],
   education: [
     {
       institution: String,
       degree: String,
-      startDate: Date,
-      endDate: Date,
     },
   ],
   location: { type: String },
