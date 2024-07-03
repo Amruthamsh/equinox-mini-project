@@ -3,11 +3,11 @@ import Link from "next/link";
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import Image from "next/image";
 import JobCard from "./components1/JobCard";
-import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
+
 import { dbConnect } from "@/lib/mongo";
 import User from "@/models/user-model";
+import EmployerAuthDetail from "@/components/Employer/EmployerAuthDetail";
 
 const getEmployerDetails = async (kindeId: String) => {
   try {
@@ -59,24 +59,6 @@ const page = async () => {
             alt="grid"
             className="w-screen h-96 opacity-80 absolute inset-0"
           />
-
-          <div className="flex place-content-between pb-10 mt-2">
-            <div className="flex flex-row gap-3 items-center">
-              <Image
-                src={user.picture}
-                alt="User profile picture"
-                width={50}
-                height={50}
-                className="rounded-full"
-              />
-              <h1 className="font-extrabold text-white-200 text-lg">
-                {user?.given_name} {user?.family_name}
-              </h1>
-            </div>
-            <div className="font-extrabold z-10 text-white-200 text-lg mt-3">
-              <LogoutLink postLogoutRedirectURL="/">Log out</LogoutLink>
-            </div>
-          </div>
 
           <div className="flex flex-row pt-14 place-content-between">
             <h1 className="text-4xl">Jobs Posted</h1>

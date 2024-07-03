@@ -8,15 +8,16 @@ import { IoDocument, IoSchool } from "react-icons/io5";
 
 const links = [
   { name: "Home", href: "/dashboard/candidate", icon: <FaHome size={24} /> },
-  {
-    name: "Basic Details",
-    href: "/dashboard/candidate/basic-details",
-    icon: <IoSchool size={24} />,
-  },
+
   {
     name: "Resume",
     href: "/dashboard/candidate/resume",
     icon: <IoDocument size={24} />,
+  },
+  {
+    name: "Key Details",
+    href: "/dashboard/candidate/key-details",
+    icon: <IoSchool size={24} />,
   },
   {
     name: "Jobs",

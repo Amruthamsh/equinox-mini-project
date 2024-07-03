@@ -1,6 +1,5 @@
-import SideNav from "@/components/ui/SideNav";
-import CandidateAuthDetail from "@/components/ui/CandidateAuthDetail";
-import { FaHamburger } from "react-icons/fa";
+import SideNav from "@/components/Candidate/SideNav";
+import CandidateAuthDetail from "@/components/Candidate/CandidateAuthDetail";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

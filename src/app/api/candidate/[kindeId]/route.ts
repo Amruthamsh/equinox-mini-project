@@ -1,8 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongo";
 import { Candidate } from "@/models/candidate-model";
-import { Types } from "mongoose";
-import { request } from "http";
 
 export const GET = async (
   request: Request,
