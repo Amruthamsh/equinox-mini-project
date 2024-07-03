@@ -122,20 +122,6 @@ export default async function FetchResumeDetails() {
   );
 }
 /*
-      <form onSubmit={generateResumeDetails}>
-        <input
-          type="submit"
-          value="Generate Resume Details"
-          className="bg-black-300 p-1 rounded-sm"
-        ></input>
-      </form>
-
-      {pdfText && (
-        <div className="overflow-auto max-h-full p-4 border border-gray-400 rounded">
-          <h2 className="text-lg font-bold mb-2">PDF Text:</h2>
-          <pre className="whitespace-pre-wrap text-white-200">{pdfText}</pre>
-        </div>
-      )}
 
       {resumeDetails && (
         <div className="overflow-auto mt-8 max-h-full p-4 border border-gray-400 rounded">

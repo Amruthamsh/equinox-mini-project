@@ -1,7 +1,7 @@
 import React from "react";
-import { Spotlight } from "./ui/Spotlight";
-import { SparklesCore } from "./ui/SparclesCore";
-import { TextGenerateEffect } from "./ui/TextGenerateEffect";
+import { Spotlight } from "../ui/Spotlight";
+import { SparklesCore } from "../ui/SparclesCore";
+import { TextGenerateEffect } from "../ui/TextGenerateEffect";
 
 const Hero = () => {
   return (

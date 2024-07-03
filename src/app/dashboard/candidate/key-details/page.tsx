@@ -1,4 +1,4 @@
-import FetchResumeDetails from "@/components/FetchResumeDetails";
+import FetchResumeDetails from "@/components/Candidate/FetchResumeDetails";
 
 export default function Page() {
   //First Get Key Resume details from the database and store it in the form input values

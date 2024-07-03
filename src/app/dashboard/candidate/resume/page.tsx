@@ -1,5 +1,5 @@
-import FetchResumeDetails from "@/components/FetchResumeDetails";
-import ResumePlain from "@/components/ResumePlain";
+import FetchResumeDetails from "@/components/Candidate/FetchResumeDetails";
+import ResumePlain from "@/components/Candidate/ResumePlain";
 import { Suspense } from "react";
 
 export default function Page() {

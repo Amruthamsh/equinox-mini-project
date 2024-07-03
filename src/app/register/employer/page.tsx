@@ -1,4 +1,4 @@
-import EmployerRegistrationForm from "@/components/EmployerRegistrationForm";
+import EmployerRegistrationForm from "@/components/Employer/EmployerRegistrationForm";
 import React from "react";
 
 const page = () => {
