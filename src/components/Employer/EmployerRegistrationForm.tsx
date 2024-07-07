@@ -65,6 +65,7 @@ const EmployerRegistrationForm = async () => {
             type="name"
             name="companyName"
             id="companyName"
+            required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
         </div>
@@ -74,6 +75,7 @@ const EmployerRegistrationForm = async () => {
             type="url"
             name="companyWebsite"
             id="companyWebsite"
+            required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
         </div>
@@ -83,6 +85,7 @@ const EmployerRegistrationForm = async () => {
             type="number"
             name="companySize"
             id="companySize"
+            required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
         </div>
@@ -92,6 +95,7 @@ const EmployerRegistrationForm = async () => {
             type="name"
             name="industry"
             id="industry"
+            required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
         </div>
@@ -101,6 +105,7 @@ const EmployerRegistrationForm = async () => {
             type="name"
             name="location"
             id="location"
+            required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
         </div>

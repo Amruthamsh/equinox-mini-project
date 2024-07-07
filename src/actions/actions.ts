@@ -6,6 +6,7 @@ import pdf from "pdf-parse";
 import { dbConnect } from "@/lib/mongo";
 import { Candidate } from "@/models/candidate-model";
 import { inference } from "@/utils/hf"; // Adjust import path as per your project structure
+import exp from "constants";
 
 export default async function uploadResume(data: FormData) {
   const { getUser } = getKindeServerSession();

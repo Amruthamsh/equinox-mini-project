@@ -3,11 +3,10 @@ import Link from "next/link";
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-import JobCard from "./components1/JobCard";
 
 import { dbConnect } from "@/lib/mongo";
 import User from "@/models/user-model";
-import EmployerAuthDetail from "@/components/Employer/EmployerAuthDetail";
+import DisplayJobCards from "@/components/Employer/DisplayJobCards";
 
 const getEmployerDetails = async (kindeId: String) => {
   try {
@@ -66,35 +65,15 @@ const page = async () => {
             <div className="relative inline-flex h-8 mt-3 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
               <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
               <span className="inline-flex h-full w-full z-10 cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-lg font-medium text-white backdrop-blur-3xl">
-                <Link href="/dashboard/employer/postjob">Post new Job</Link>
+                <Link href={`/dashboard/employer/postjob/${employer._id}`}>
+                  Post new Job
+                </Link>
               </span>
             </div>
           </div>
 
           <div className="mt-12 grid grid-cols-2 gap-8 md:grid-cols-2 lg:grid-cols-2 ">
-            <JobCard
-              title="Software Engineering"
-              text="We are looking for a talented Software Engineer to join our development team. The ideal candidate will have experience in designing, developing, and implementing software solutions.Responsibilities include writing clean and efficient code, debugging programs, and collaborating with other developers to create high-quality products."
-              img="/exp2.svg"
-            />
-
-            <JobCard
-              title="Marketing Manager"
-              text="We are seeking an experienced Marketing Manager to develop and implement marketing strategies that will drive growth and brand awareness. The ideal candidate will have a proven track record in marketing, excellent leadership skills, and the ability to work in a fast-paced environment."
-              img="/exp2.svg"
-            />
-
-            <JobCard
-              title="Project Manager"
-              text="We are looking for a highly organized and motivated Project Manager to lead and manage projects from inception to completion.The ideal candidate will be responsible for planning, executing,and overseeing projects to ensure they are completed on time and within budget."
-              img="/exp2.svg"
-            />
-
-            <JobCard
-              title="Human Resources Specialist"
-              text="We are looking for a dedicated Human Resources Specialist to join our HR team. The ideal candidate will handle recruitment, employee relations, performance management, and compliance with labor laws and regulations."
-              img="/exp2.svg"
-            />
+            <DisplayJobCards employerId={employer._id} />
           </div>
         </div>
       </div>
