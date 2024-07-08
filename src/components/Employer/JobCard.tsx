@@ -25,10 +25,11 @@ const JobCard = ({ title, text, img, jobId }) => {
         <h3 className="text-lg  text-zinc-50 font-bold">{title}</h3>
         <p className="mt-2 text-sm text-gray-300 ">{text}</p>
         <div className="pt-10 ">
-          <Link href={`/dashboard/employer/job-knowmore/${jobId}`}>
-            <div className="bg-white text-slate-950 p-2 rounded  absolute right-0 bottom-0">
-              Know more
-            </div>
+          <Link
+            href={`/dashboard/employer/job-knowmore/${jobId}`}
+            className="bg-white text-slate-950 p-2 rounded absolute right-0 bottom-0 hover:bg-yellow-400"
+          >
+            Know more
           </Link>
         </div>
       </div>

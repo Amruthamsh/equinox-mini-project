@@ -13,6 +13,10 @@ const EmployerRegistrationForm = async () => {
 
   const user = await getUser();
 
+  if (!user) {
+    redirect("/");
+  }
+
   async function handleSubmit(formData: FormData) {
     "use server";
 
