@@ -41,6 +41,16 @@ const page = async () => {
   const existingUser = await User.findOne({
     kindeAuthId: user?.id!,
   });
+
+  if (!existingUser) {
+    const newUser = new User({
+      kindeAuthId: user?.id!,
+      role: "employer",
+    });
+
+    await newUser.save();
+  }
+
   if (existingUser.role == "candidate") {
     redirect("/");
   }
