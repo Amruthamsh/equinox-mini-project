@@ -42,17 +42,10 @@ const page = async () => {
     kindeAuthId: user?.id!,
   });
 
-  if (!existingUser) {
-    const newUser = new User({
-      kindeAuthId: user?.id!,
-      role: "employer",
-    });
-
-    await newUser.save();
-  }
-
-  if (existingUser.role == "candidate") {
-    redirect("/");
+  if (existingUser) {
+    if (existingUser.role == "candidate") {
+      redirect("/");
+    }
   }
 
   const employer = await getEmployerDetails(user?.id!);

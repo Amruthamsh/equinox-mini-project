@@ -23,6 +23,14 @@ const EmployerRegistrationForm = async () => {
     try {
       await dbConnect();
 
+      //Create User
+      const userBody = {
+        role: "employer",
+        kindeAuthId: user.id!,
+      };
+      const newUser = new User(userBody);
+      await newUser.save();
+
       //Create Employer
       const employer = await Employer.findOne({
         kindeAuthId: user?.id,
@@ -42,14 +50,6 @@ const EmployerRegistrationForm = async () => {
 
       const newEmployer = new Employer(body);
       await newEmployer.save();
-
-      //Create User
-      const userBody = {
-        role: "employer",
-        kindeAuthId: user.id!,
-      };
-      const newUser = new User(userBody);
-      await newUser.save();
     } catch (error) {
       console.error("Error in creating employee", error);
     }
