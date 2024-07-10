@@ -2,10 +2,39 @@ import { dbConnect } from "@/lib/mongo";
 import React from "react";
 import Job from "@/models/job-model";
 import Link from "next/link";
+import { Candidate } from "@/models/candidate-model";
 
 async function page({ params: { jobId } }) {
-  await dbConnect();
+  const db = await dbConnect();
   const job = await Job.findById(jobId);
+
+  const agg = [
+    {
+      $search: {
+        index: "candidate_search",
+        text: {
+          query: "Bachelor Fine Art",
+          path: {
+            wildcard: "*",
+          },
+        },
+      },
+    },
+    {
+      $project: {
+        title: 1,
+        score: { $meta: "searchScore" },
+      },
+    },
+  ];
+
+  try {
+    const documents = await Candidate.collection.aggregate(agg).toArray();
+    documents.forEach((doc) => console.log(doc));
+  } catch (error) {
+    console.error("Error during aggregation:", error);
+  }
+
   return (
     <div className="font-Poppins bg-black-100 text-white h-full z-10 max-w-7xl mx-auto ">
       <div className="relative">
@@ -44,8 +73,8 @@ async function page({ params: { jobId } }) {
 
       <div className="py-2">
         <h1 className="text-4xl pl-6 pb-5">Candidates</h1>
-        <div className="text-center flex max-w-5xl mx-auto gap-8 group">
-          <div className="bg-white/10 group-hover:scale-[0.85] hover:!scale-100 cursor-pointer p-8 rounded-xl">
+        <div className="text-center flex max-w-5xl mx-auto gap-8">
+          <div className="bg-white/10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer p-8 rounded-xl">
             <img src="/exp1.svg" alt="" className="h-20 mx-auto" />
             <h4 className="uppercase text-xl font-bold">John Doe</h4>
             <p className="text-sm leading-7 my-3 font-light opacity-50">
@@ -58,7 +87,7 @@ async function page({ params: { jobId } }) {
             </button>
           </div>
 
-          <div className="bg-white/10 group-hover:scale-[0.85] hover:!scale-100 cursor-pointer p-8 rounded-xl">
+          <div className="bg-white/10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer p-8 rounded-xl">
             <img src="/exp4.svg" alt="" className="h-20 mx-auto" />
             <h4 className="uppercase text-xl font-bold">Emily Johnson</h4>
             <p className="text-sm leading-7 my-3 font-light opacity-50">
@@ -72,7 +101,7 @@ async function page({ params: { jobId } }) {
             </button>
           </div>
 
-          <div className="bg-white/10 group-hover:scale-[0.85] hover:!scale-100 cursor-pointer p-8 rounded-xl">
+          <div className="bg-white/10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer p-8 rounded-xl">
             <img src="/exp1.svg" alt="" className="h-20 mx-auto" />
             <h4 className="uppercase text-xl font-bold">Michael Brown</h4>
             <p className="text-sm leading-7 my-3 font-light opacity-50">

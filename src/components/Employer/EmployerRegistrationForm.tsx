@@ -23,33 +23,29 @@ const EmployerRegistrationForm = async () => {
     try {
       await dbConnect();
 
-      //Create User
-      const userBody = {
-        role: "employer",
-        kindeAuthId: user.id!,
-      };
-      const newUser = new User(userBody);
-      await newUser.save();
-
       //Create Employer
-      const employer = await Employer.findOne({
-        kindeAuthId: user?.id,
-      });
-      if (employer) {
-        console.log("Employer already exists");
-        return;
-      }
       const body = {
+        name: user.given_name,
+        email: user.email,
+        picture: user.picture,
         companyName: formData.get("companyName"),
         companyWebsite: formData.get("companyWebsite"),
         companySize: formData.get("companySize"),
         industry: formData.get("industry"),
         location: formData.get("location"),
-        kindeAuthId: user?.id,
       };
 
       const newEmployer = new Employer(body);
       await newEmployer.save();
+
+      //Create User
+      const userBody = {
+        role: "employer",
+        kindeAuthId: user?.id!,
+        employerId: newEmployer._id,
+      };
+      const newUser = new User(userBody);
+      await newUser.save();
     } catch (error) {
       console.error("Error in creating employee", error);
     }

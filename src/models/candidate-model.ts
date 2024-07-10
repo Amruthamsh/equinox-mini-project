@@ -1,6 +1,9 @@
 import mongoose, { Schema } from "mongoose";
 
 const candidateProfileSchema = new Schema({
+  name: { type: String, required: true },
+  email: { type: String, required: true },
+  picture: { type: String },
   resume_str: { type: String }, // resume in string format
   title: String,
   skills: [{ type: String }],
@@ -8,10 +11,9 @@ const candidateProfileSchema = new Schema({
   experience: [
     {
       description: String,
-      startDate: String,
-      endDate: String,
     },
   ],
+  yearsOfExperience: { type: Number },
   education: [
     {
       institution: String,
@@ -23,7 +25,12 @@ const candidateProfileSchema = new Schema({
     jobType: { type: String, enum: ["full-time", "part-time", "contract"] },
     industries: [{ type: String }],
   },
-  kindeAuthId: { type: String, required: true, unique: true },
+  jobsRecommended: [
+    {
+      jobId: { type: Schema.Types.ObjectId, ref: "Job" },
+      rank: Number,
+    },
+  ],
 });
 
 export const Candidate =

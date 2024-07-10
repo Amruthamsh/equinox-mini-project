@@ -7,6 +7,7 @@ import { dbConnect } from "@/lib/mongo";
 import { Candidate } from "@/models/candidate-model";
 import { inference } from "@/utils/hf"; // Adjust import path as per your project structure
 import exp from "constants";
+import User from "@/models/user-model";
 
 export default async function uploadResume(data: FormData) {
   const { getUser } = getKindeServerSession();
@@ -29,13 +30,14 @@ export default async function uploadResume(data: FormData) {
     const prompt = `
       From the Resume text for a job aspirant below, extract Entities strictly as instructed below
       1. First, look for the Job Title of the candidate resume.
-      2. skills property should be an array of strings. DO NOT REPEAT SKILLS. If a skill is mentioned multiple times, it should be counted only once.
+      2. skills property should be an array of strings. It should be a standalone word or a short phrase. DO NOT REPEAT SKILLS. If a skill is mentioned multiple times, it should be counted only once.
       3. summary property should be a crisp text summary and MUST NOT be more than 200 characters
-      4. experience property should be an array of strings. Description should not exceed 100 characters, startDate and endDate should be Date
-      5. education property should be an array of strings. DO not repeat values
-      6. If you cannot find any information on the entities & relationships above, it is okay to return empty value. DO NOT create fictious data
-      7. Do NOT create duplicate entities
-      8. NEVER Input missing values
+      4. experience property should be an array of strings. Description should not exceed 100 characters
+      5  yearsOfExperience should be a number. If the years of experience is not mentioned or the candidate is a fresher, it should be 0
+      6. education property should be an array of strings. DO not repeat values
+      7. If you cannot find any information on the entities & relationships above, it is okay to return empty value. DO NOT create fictious data
+      8. Do NOT create duplicate entities
+      9. NEVER Input missing values
       
       The JSON format for the Candidate entity is as follows:
         title: string,
@@ -44,10 +46,9 @@ export default async function uploadResume(data: FormData) {
         experience: [
           {
             description: string,
-            startDate: Date,
-            endDate: Date,
           },
         ],
+        yearsOfExperience: number,
         education: [
           {
             institution: string,
@@ -75,11 +76,16 @@ export default async function uploadResume(data: FormData) {
       max_tokens: 4096,
     });
 
+    console.log(out.choices[0].message.content);
+
     const resumeDetails = JSON.parse(out.choices[0].message.content);
     await dbConnect();
 
+    const userDB = await User.findOne({ kindeAuthId: user.id });
+    const candidateId = userDB.candidateId;
+
     await Candidate.updateOne(
-      { kindeAuthId: user.id },
+      { _id: candidateId },
       {
         $set: {
           resume_str: text,

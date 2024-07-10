@@ -7,6 +7,9 @@ import { redirect } from "next/navigation";
 import { dbConnect } from "@/lib/mongo";
 import User from "@/models/user-model";
 import DisplayJobCards from "@/components/Employer/DisplayJobCards";
+import { Employer } from "@/models/employer-model";
+
+/*
 
 const getEmployerDetails = async (kindeId: String) => {
   try {
@@ -31,6 +34,24 @@ const getEmployerDetails = async (kindeId: String) => {
     return null; // or throw an error
   }
 };
+*/
+
+const getEmployerDetails = async (kindeId: String) => {
+  try {
+    const user = await User.findOne({ kindeAuthId: kindeId });
+    if (!user) return null;
+
+    const employer = await Employer.findById(user.employerId);
+    if (!employer) return null;
+
+    console.log("Employer Details", employer);
+    return employer;
+  } catch (error) {
+    console.error("Error loading employer details:", error);
+    return null; // or throw an error
+  }
+};
+
 const page = async () => {
   const { getUser } = getKindeServerSession();
 

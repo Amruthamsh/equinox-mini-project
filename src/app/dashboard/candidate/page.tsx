@@ -8,6 +8,7 @@ import { dbConnect } from "@/lib/mongo";
 import { Candidate } from "@/models/candidate-model";
 import User from "@/models/user-model";
 
+/*
 const getCandidateDetails = async (kindeId: String) => {
   try {
     const response = await fetch(
@@ -31,6 +32,28 @@ const getCandidateDetails = async (kindeId: String) => {
     return null;
   }
 };
+*/
+
+const getCandidateDetails = async (kindeId: String) => {
+  try {
+    await dbConnect();
+    const user = await User.findOne({ kindeAuthId: kindeId });
+    if (!user) {
+      return null;
+    }
+    const candidate = await Candidate.findById(user.candidateId);
+    if (!candidate) {
+      return null;
+    }
+
+    console.log("Candidate details:", candidate);
+
+    return candidate;
+  } catch (error) {
+    console.error("Error loading candidate details:", error);
+    return null;
+  }
+};
 
 const page = async () => {
   const { getUser } = getKindeServerSession();
@@ -43,25 +66,29 @@ const page = async () => {
     const existingUser = await User.findOne({
       kindeAuthId: user?.id!,
     });
-    if (existingUser) {
+    if (existingUser || !user?.id) {
       redirect("/");
     }
 
-    if (user.id) {
-      //Create User
-      console.log("creating User");
-      const userBody = {
-        role: "candidate",
-        kindeAuthId: user.id,
-      };
-      const newUser = new User(userBody);
-      await newUser.save();
-    }
-
     //Create Candidate
-    const candidateBody = { kindeAuthId: user?.id! };
+    const candidateBody = {
+      name: user?.given_name,
+      email: user?.email,
+      picture: user?.picture,
+    };
     const newCandidate = new Candidate(candidateBody);
     await newCandidate.save();
+
+    //Create User
+    console.log("creating User");
+    const userBody = {
+      role: "candidate",
+      kindeAuthId: user?.id!,
+      candidateId: newCandidate._id,
+    };
+    const newUser = new User(userBody);
+    await newUser.save();
+
     return newCandidate;
   };
 
