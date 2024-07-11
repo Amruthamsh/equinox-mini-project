@@ -3,8 +3,10 @@ import mongoose, { Schema } from "mongoose";
 const jobSchema = new Schema({
   title: { type: String, required: true },
   role: { type: String, required: true },
+  industry: { type: String, required: true },
   yearsOfExperience: { type: Number, required: true },
   jobDescription: { type: String, required: true },
+  keywordString: { type: String },
   skillsRequired: [{ type: String }],
   experienceRequired: { type: String },
   educationRequired: { type: String },

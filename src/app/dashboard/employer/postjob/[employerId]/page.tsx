@@ -3,6 +3,27 @@ import Link from "next/link";
 import { dbConnect } from "@/lib/mongo";
 import Job from "@/models/job-model";
 import { redirect } from "next/navigation";
+import { inference } from "@/utils/hf";
+
+const industries = [
+  "Advertising",
+  "Aerospace",
+  "Agriculture",
+  "Automotive",
+  "Banking",
+  "Biotechnology",
+  "Construction",
+  "Defence",
+  "Education",
+  "Entertainment",
+  "Fashion",
+  "Financial",
+  "Gaming",
+  "Healthcare",
+  "Info",
+  "IT",
+  "Telecommunication",
+];
 
 function page({ params }) {
   async function handleSubmit(formData: FormData) {
@@ -12,19 +33,52 @@ function page({ params }) {
     console.log("Employer ID:", params.employerId);
 
     try {
+      const prompt = `
+      ${formData.get("jobDescription")}
+      From the Job Description above,
+      extract keywords relevant to the job role, 
+      skills, and experience and return them in an array format.
+
+      The JSON format for the Keywords entity is as follows:
+      [
+        "keyword1",
+        "keyword2",
+        "keyword3",
+        ...
+      ]
+
+      `;
+
+      const out = await inference.chatCompletion({
+        model: "mistralai/Mistral-7B-Instruct-v0.3",
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+        max_tokens: 4096,
+      });
+
+      const keywordsArray = JSON.parse(out.choices[0].message.content);
+      const keywordsString = keywordsArray.join(" ");
+
+      console.log("industry:", formData.get("industry"));
+      console.log("Keywords:", keywordsString);
+
       await dbConnect();
       //create new job
       const body = {
         title: formData.get("title"),
         role: formData.get("role"),
+        industry: formData.get("industry"),
         yearsOfExperience: formData.get("yearsOfExperience"),
-        jobDescription: formData.get("jobDescription"),
+        jobDescription: keywordsString,
+        keywordString: formData.get("jobDescription"),
         location: formData.get("location"),
         jobType: formData.get("jobType"),
         employerId: params.employerId,
       };
-
-      console.log("Job Details:", body);
 
       const newJob = new Job(body);
       await newJob.save();
@@ -61,6 +115,17 @@ function page({ params }) {
             required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
+        </div>
+
+        <div>
+          <label>Industry</label>
+          <select name="industry" id="industry">
+            {industries.map((ind) => (
+              <option key={ind} value={ind}>
+                {ind}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="w-full flex flex-col my-4">

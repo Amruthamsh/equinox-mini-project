@@ -50,7 +50,7 @@ const EmployerRegistrationForm = async () => {
       console.error("Error in creating employee", error);
     }
 
-    redirect("/");
+    redirect("/dashboard/employer");
   }
 
   return (
@@ -110,12 +110,12 @@ const EmployerRegistrationForm = async () => {
           />
         </div>
         <div className="flex place-content-center gap-5">
-          <LogoutLink className="px-4 py-2 w-32 justify-end rounded-md bg-slate-800 text-white text-center font-medium">
+          <LogoutLink className="px-4 py-2 w-32 justify-end rounded-md bg-slate-800 text-white text-center font-medium hover:bg-slate-600">
             Cancel
           </LogoutLink>
           <button
             type="submit"
-            className="px-4 py-2 w-32 justify-start rounded-md bg-indigo-800 text-white font-medium"
+            className="px-4 py-2 w-32 justify-start rounded-md bg-indigo-800 text-white font-medium hover:bg-pink-600"
           >
             Submit
           </button>

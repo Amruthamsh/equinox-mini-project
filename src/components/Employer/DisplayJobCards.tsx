@@ -25,7 +25,13 @@ const DisplayJobCards = async (props: Props) => {
             key={job._id}
             title={job.title}
             text={job.jobDescription}
-            img="/exp2.svg"
+            industry={job.industry}
+            date={job.postedAt
+              .toString()
+              .slice(0, 10)
+              .split("-")
+              .reverse()
+              .join("-")}
             jobId={job._id}
           />
         ))}

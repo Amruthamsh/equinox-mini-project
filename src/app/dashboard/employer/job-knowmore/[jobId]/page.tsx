@@ -3,6 +3,8 @@ import React from "react";
 import Job from "@/models/job-model";
 import Link from "next/link";
 import { Candidate } from "@/models/candidate-model";
+import path from "path";
+import DeleteJobButton from "@/components/Employer/DeleteJobButton";
 
 async function page({ params: { jobId } }) {
   const db = await dbConnect();
@@ -12,17 +14,42 @@ async function page({ params: { jobId } }) {
     {
       $search: {
         index: "candidate_search",
-        text: {
-          query: "Bachelor Fine Art",
-          path: {
-            wildcard: "*",
-          },
+        compound: {
+          must: [
+            {
+              text: {
+                query: job.keywordString,
+                path: "resume_str",
+              },
+            },
+            {
+              text: {
+                query: job.location,
+                path: "location",
+                fuzzy: {},
+              },
+            },
+            {
+              equals: {
+                value: job.jobType,
+                path: "preferences.jobType",
+              },
+            },
+            {
+              range: {
+                gte: job.yearsOfExperience,
+                path: "yearsOfExperience",
+              },
+            },
+          ],
         },
       },
     },
+    { $limit: 10 },
     {
       $project: {
-        title: 1,
+        name: 1,
+        email: 1,
         score: { $meta: "searchScore" },
       },
     },
@@ -49,6 +76,7 @@ async function page({ params: { jobId } }) {
         >
           All Jobs
         </Link>
+
         <div className="relative z-20 py-10 pl-6">
           <h1 className="text-start text-4xl mb-5">{job.title}</h1>
           <div className="mb-10">
@@ -113,6 +141,9 @@ async function page({ params: { jobId } }) {
               Get in touch
             </button>
           </div>
+        </div>
+        <div className="m-6">
+          <DeleteJobButton jobId={jobId} />
         </div>
       </div>
     </div>
