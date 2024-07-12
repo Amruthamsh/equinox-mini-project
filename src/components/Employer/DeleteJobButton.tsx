@@ -9,13 +9,13 @@ interface Props {
 
 const DeleteJobButton = (props: Props) => {
   console.log("Rendering DeleteJobButton with jobId:", props.jobId);
-  const deleteJob = async () => {
+  const deleteJob = () => {
     console.log("Deleted ", props.jobId);
   };
 
   return (
     <button
-      onClick={deleteJob}
+      onClick={() => deleteJob()}
       className="hover:bg-red-600 hover:cursor-pointer bg-slate-700 absolute p-2 rounded-md "
     >
       Delete Job Posting
