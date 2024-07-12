@@ -2,6 +2,7 @@ import { dbConnect } from "@/lib/mongo";
 import React from "react";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { Candidate } from "@/models/candidate-model";
+import User from "@/models/user-model";
 
 const ResumePlain = async () => {
   const { getUser } = getKindeServerSession();
@@ -12,7 +13,8 @@ const ResumePlain = async () => {
   } else {
     pdfText = "This is a placeholder for the PDF text. User found";
     await dbConnect();
-    const candidate = await Candidate.findOne({ kindeAuthId: user.id });
+    const userDB = await User.findOne({ kindeAuthId: user.id });
+    const candidate = await Candidate.findById(userDB.candidateId);
     pdfText = candidate.resume_str;
   }
 

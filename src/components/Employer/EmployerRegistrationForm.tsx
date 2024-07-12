@@ -13,6 +13,10 @@ const EmployerRegistrationForm = async () => {
 
   const user = await getUser();
 
+  if (!user) {
+    redirect("/");
+  }
+
   async function handleSubmit(formData: FormData) {
     "use server";
 
@@ -20,20 +24,15 @@ const EmployerRegistrationForm = async () => {
       await dbConnect();
 
       //Create Employer
-      const employer = await Employer.findOne({
-        kindeAuthId: user?.id,
-      });
-      if (employer) {
-        console.log("Employer already exists");
-        return;
-      }
       const body = {
+        name: user.given_name,
+        email: user.email,
+        picture: user.picture,
         companyName: formData.get("companyName"),
         companyWebsite: formData.get("companyWebsite"),
         companySize: formData.get("companySize"),
         industry: formData.get("industry"),
         location: formData.get("location"),
-        kindeAuthId: user?.id,
       };
 
       const newEmployer = new Employer(body);
@@ -42,7 +41,8 @@ const EmployerRegistrationForm = async () => {
       //Create User
       const userBody = {
         role: "employer",
-        kindeAuthId: user.id!,
+        kindeAuthId: user?.id!,
+        employerId: newEmployer._id,
       };
       const newUser = new User(userBody);
       await newUser.save();
@@ -50,7 +50,7 @@ const EmployerRegistrationForm = async () => {
       console.error("Error in creating employee", error);
     }
 
-    redirect("/");
+    redirect("/dashboard/employer");
   }
 
   return (
@@ -65,6 +65,7 @@ const EmployerRegistrationForm = async () => {
             type="name"
             name="companyName"
             id="companyName"
+            required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
         </div>
@@ -74,6 +75,7 @@ const EmployerRegistrationForm = async () => {
             type="url"
             name="companyWebsite"
             id="companyWebsite"
+            required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
         </div>
@@ -83,6 +85,7 @@ const EmployerRegistrationForm = async () => {
             type="number"
             name="companySize"
             id="companySize"
+            required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
         </div>
@@ -92,6 +95,7 @@ const EmployerRegistrationForm = async () => {
             type="name"
             name="industry"
             id="industry"
+            required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
         </div>
@@ -101,16 +105,17 @@ const EmployerRegistrationForm = async () => {
             type="name"
             name="location"
             id="location"
+            required={true}
             className="bg-white text-black-100 rounded-md p-2"
           />
         </div>
         <div className="flex place-content-center gap-5">
-          <LogoutLink className="px-4 py-2 w-32 justify-end rounded-md bg-slate-800 text-white text-center font-medium">
+          <LogoutLink className="px-4 py-2 w-32 justify-end rounded-md bg-slate-800 text-white text-center font-medium hover:bg-slate-600">
             Cancel
           </LogoutLink>
           <button
             type="submit"
-            className="px-4 py-2 w-32 justify-start rounded-md bg-indigo-800 text-white font-medium"
+            className="px-4 py-2 w-32 justify-start rounded-md bg-indigo-800 text-white font-medium hover:bg-pink-600"
           >
             Submit
           </button>

@@ -5,7 +5,7 @@ import { gridItems } from "@/data";
 const About = () => {
   return (
     <section id="about">
-      <h1 className="flex items-center justify-center text-5xl pt-20 pb-10">
+      <h1 className="text-5xl mb-8 flex flex-col items-center relative">
         About us
       </h1>
       <BentoGrid>

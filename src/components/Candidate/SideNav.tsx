@@ -20,6 +20,11 @@ const links = [
     icon: <IoSchool size={24} />,
   },
   {
+    name: "Change Details",
+    href: "/dashboard/candidate/change-details",
+    icon: <IoSchool size={24} />,
+  },
+  {
     name: "Jobs",
     href: "/dashboard/candidate/job-suggestions",
     icon: <FaLaptop size={24} />,
