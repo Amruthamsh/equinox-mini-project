@@ -18,6 +18,7 @@ const page = async () => {
     await dbConnect();
     const userDB = await User.findOne({ kindeAuthId: user.id });
     const candidateId = userDB.candidateId;
+    console.log(formData.get("industry"));
     try {
       const body = {
         $set: {
@@ -61,7 +62,12 @@ const page = async () => {
           <label htmlFor="title" className="mr-5 ">
             Industry:
           </label>
-          <select name="jobType" id="jobType" defaultValue={candidate.industry}>
+          <select
+            name="industry"
+            id="industry"
+            defaultValue={candidate.industry}
+            className="w-36 py-1 px-2 rounded-md"
+          >
             <option value="IT">IT</option>
             <option value="Defence">Defence</option>
             <option value="Healthcare">Healthcare</option>
