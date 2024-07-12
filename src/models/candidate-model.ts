@@ -28,7 +28,7 @@ const candidateProfileSchema = new Schema({
   jobsRecommended: [
     {
       jobId: { type: Schema.Types.ObjectId, ref: "Job" },
-      rank: Number,
+      score: Number,
     },
   ],
 });

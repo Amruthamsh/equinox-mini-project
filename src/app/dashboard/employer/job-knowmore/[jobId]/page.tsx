@@ -48,16 +48,75 @@ async function page({ params: { jobId } }) {
     { $limit: 10 },
     {
       $project: {
+        _id: 1,
         name: 1,
         email: 1,
-        score: { $meta: "searchScore" },
+        picture: 1,
+        title: 1,
+        summary: 1,
+        skills: 1,
+        score: 1,
+        maxScore: 1,
+        normalizedScore: 1,
+      },
+    },
+    {
+      $addFields: {
+        score: {
+          $meta: "searchScore",
+        },
+      },
+    },
+    {
+      $setWindowFields: {
+        output: {
+          maxScore: {
+            $max: "$score",
+          },
+        },
+      },
+    },
+    {
+      $addFields: {
+        normalizedScore: {
+          $divide: ["$score", "$maxScore"],
+        },
       },
     },
   ];
 
   try {
-    const documents = await Candidate.collection.aggregate(agg).toArray();
-    documents.forEach((doc) => console.log(doc));
+    //const candidates = await Candidate.collection.aggregate(agg).toArray();
+    //candidates.forEach((candidate) => console.log(candidate));
+
+    const candidates = await Candidate.aggregate(agg);
+    console.log(candidates);
+
+    for (const candidate of candidates) {
+      // Update the existing job recommendation if it exists
+      await Candidate.updateOne(
+        { _id: candidate._id, "jobsRecommended.jobId": jobId },
+        {
+          $set: {
+            jobId: jobId,
+            "jobsRecommended.$.score": candidate.normalizedScore,
+          },
+        }
+      );
+
+      //Push a new job recommendation if it does not exist
+      await Candidate.updateOne(
+        { _id: candidate._id, "jobsRecommended.jobId": { $ne: jobId } },
+        {
+          $push: {
+            jobsRecommended: {
+              jobId: jobId,
+              score: candidate.normalizedScore,
+            },
+          },
+        }
+      );
+    }
   } catch (error) {
     console.error("Error during aggregation:", error);
   }

@@ -25,7 +25,9 @@ const page = async () => {
           summary: formData.get("summary"),
           yearsOfExperience: formData.get("yearsOfExperience"),
           location: formData.get("location"),
-          jobType: formData.get("jobType"),
+          preferences: {
+            jobType: formData.get("jobType"),
+          },
         },
       };
 
