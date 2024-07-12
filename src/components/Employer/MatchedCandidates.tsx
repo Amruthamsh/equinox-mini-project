@@ -115,7 +115,11 @@ const MatchedCandidates = async ({ props: jobId }) => {
     console.error("Error during aggregation:", error);
   }
   if (candidates.length === 0) {
-    return <div>No Matched Candidates</div>;
+    return (
+      <div className="flex justify-center text-lg">
+        No Matched Candidates yet!
+      </div>
+    );
   }
 
   return (
@@ -125,20 +129,27 @@ const MatchedCandidates = async ({ props: jobId }) => {
         {candidates.map((candidate, index) => (
           <div
             key={index}
-            className="bg-white/10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer p-8 rounded-xl"
+            className="bg-white/10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer p-8 rounded-xl flex flex-col justify-between"
           >
-            <img
-              src={candidate.picture || "/exp1.svg"}
-              alt=""
-              className="h-20 mx-auto"
-            />
-            <h4 className="uppercase text-xl font-bold">{candidate.name}</h4>
-            <p className="text-sm leading-7 my-3 font-light opacity-50">
-              {candidate.summary}
+            <div>
+              <img
+                src={candidate.picture || "/exp1.svg"}
+                alt=""
+                className="h-20 mx-auto rounded-full mb-2"
+              />
+              <h4 className="uppercase text-xl font-bold">{candidate.name}</h4>
+              <p className="text-sm leading-7 my-3 font-light opacity-50">
+                {candidate.summary}
+              </p>
+              <a href={`mailto:${candidate.email}`}>
+                <button className="bg-slate-700 hover:bg-violet-600 py-2.5 px-8 rounded-full">
+                  Get in touch
+                </button>
+              </a>
+            </div>
+            <p className="mt-4">
+              Score: {(candidate.normalizedScore * 100).toPrecision(4) + "%"}
             </p>
-            <button className="bg-violet-400 py-2.5 px-8 rounded-full">
-              Get in touch
-            </button>
           </div>
         ))}
       </div>

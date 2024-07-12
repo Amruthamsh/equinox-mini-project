@@ -2,7 +2,6 @@ import { dbConnect } from "@/lib/mongo";
 import React from "react";
 import Job from "@/models/job-model";
 import Link from "next/link";
-import { Candidate } from "@/models/candidate-model";
 import MatchedCandidates from "@/components/Employer/MatchedCandidates";
 
 async function page({ params: { jobId } }) {

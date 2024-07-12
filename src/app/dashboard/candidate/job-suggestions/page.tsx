@@ -40,9 +40,11 @@ export default async function Page() {
             <p>Location: {job.location}</p>
             <p>Job Type: {job.jobType}</p>
             <div className="flex justify-end">
-              <button className="hover:bg-white hover:text-pink-600 font-semibold p-2 rounded-lg">
-                Contact Recruiter
-              </button>
+              <a href="mailto:amruthamsh13@gmail.com">
+                <button className="hover:bg-white hover:text-pink-600 font-semibold p-2 rounded-lg">
+                  Contact Recruiter
+                </button>
+              </a>
             </div>
           </div>
         ))}

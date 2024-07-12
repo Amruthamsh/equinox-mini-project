@@ -24,6 +24,7 @@ const page = async () => {
           title: formData.get("title"),
           summary: formData.get("summary"),
           yearsOfExperience: formData.get("yearsOfExperience"),
+          industry: formData.get("industry"),
           location: formData.get("location"),
           preferences: {
             jobType: formData.get("jobType"),
@@ -55,6 +56,19 @@ const page = async () => {
             contentEditable={true}
             className="lg:w-2/3 sm:w-full  p-1 rounded-md dark:bg-slate-700"
           />
+        </div>
+        <div className="flex-col flex relative  mb-5 w-full">
+          <label htmlFor="title" className="mr-5 ">
+            Industry:
+          </label>
+          <select name="jobType" id="jobType" defaultValue={candidate.industry}>
+            <option value="IT">IT</option>
+            <option value="Defence">Defence</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Banking">Banking</option>
+            <option value="Service">Service</option>
+            <option value="Other">Other</option>
+          </select>
         </div>
         <div className="flex-col row-span-3 my-4 w-full relative mb-5 ">
           <label htmlFor="summary" className="mr-5 flex">
@@ -102,7 +116,11 @@ const page = async () => {
           <label htmlFor="title" className="mr-5">
             Job Type:
           </label>
-          <select name="jobType" id="jobType">
+          <select
+            name="jobType"
+            id="jobType"
+            defaultValue={candidate.preferences.jobType}
+          >
             <option value="full-time">Full Time</option>
             <option value="part-time">Part Time</option>
             <option value="contract">Contract</option>

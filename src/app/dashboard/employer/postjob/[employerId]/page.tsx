@@ -6,23 +6,12 @@ import { redirect } from "next/navigation";
 import { inference } from "@/utils/hf";
 
 const industries = [
-  "Advertising",
-  "Aerospace",
-  "Agriculture",
-  "Automotive",
-  "Banking",
-  "Biotechnology",
-  "Construction",
-  "Defence",
-  "Education",
-  "Entertainment",
-  "Fashion",
-  "Financial",
-  "Gaming",
-  "Healthcare",
-  "Info",
   "IT",
-  "Telecommunication",
+  "Healthcare",
+  "Defence",
+  "Services",
+  "Banking",
+  "Other",
 ];
 
 function page({ params }) {
@@ -73,8 +62,8 @@ function page({ params }) {
         role: formData.get("role"),
         industry: formData.get("industry"),
         yearsOfExperience: formData.get("yearsOfExperience"),
-        jobDescription: keywordsString,
-        keywordString: formData.get("jobDescription"),
+        jobDescription: formData.get("jobDescription"),
+        keywordString: keywordsString,
         location: formData.get("location"),
         jobType: formData.get("jobType"),
         employerId: params.employerId,

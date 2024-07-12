@@ -8,6 +8,7 @@ const candidateProfileSchema = new Schema({
   title: String,
   skills: [{ type: String }],
   summary: String,
+  industry: String,
   experience: [
     {
       description: String,
