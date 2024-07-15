@@ -102,7 +102,11 @@ const page = async () => {
           <label htmlFor="title" className="mr-5">
             Job Type:
           </label>
-          <select name="jobType" id="jobType">
+          <select
+            name="jobType"
+            id="jobType"
+            defaultValue={candidate.preferences.jobType}
+          >
             <option value="full-time">Full Time</option>
             <option value="part-time">Part Time</option>
             <option value="contract">Contract</option>
