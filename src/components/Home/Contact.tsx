@@ -9,7 +9,7 @@ const Contact = () => {
     <section id="contact">
       <footer className="w-full pt-32 pb-10 relative" id="contact">
         <div className="w-full absolute left-0 bottom-0 min-h-96">
-          <img
+          <Image
             src="/footer-grid.svg"
             alt="grid"
             className="w-full h-full opacity-50 z-[1]"
