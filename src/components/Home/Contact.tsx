@@ -28,7 +28,7 @@ const Contact = () => {
           </p>
           <a href="mailto:equinox@gmail.com">
             <MagicButton
-              title="Lets get in touch"
+              title="Let's get in touch"
               icon={<FaLocationArrow />}
               position="right"
             />
