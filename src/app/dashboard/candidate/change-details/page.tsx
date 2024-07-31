@@ -11,27 +11,11 @@ const Page = async () => {
   try {
     const { getUser } = getKindeServerSession();
     user = await getUser();
-
-    if (!user) {
-      throw new Error("User not authenticated");
-    }
-
     await dbConnect();
     userDB = await User.findOne({ kindeAuthId: user.id });
-
-    if (!userDB) {
-      throw new Error("User not found in the database");
-    }
-
     candidate = await Candidate.findById(userDB.candidateId);
-
-    if (!candidate) {
-      throw new Error("Candidate details not found");
-    }
   } catch (error) {
     console.error("Error fetching user or candidate details:", error);
-    errorMessage =
-      "There was an error loading your data. Please try again later.";
   }
 
   async function handleSubmit(formData: FormData) {
@@ -39,11 +23,6 @@ const Page = async () => {
     try {
       await dbConnect();
       const userDB = await User.findOne({ kindeAuthId: user.id });
-
-      if (!userDB) {
-        throw new Error("User not found in the database");
-      }
-
       const candidateId = userDB.candidateId;
 
       const body = {

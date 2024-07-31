@@ -6,11 +6,16 @@ import { Candidate } from "@/models/candidate-model";
 import User from "@/models/user-model";
 
 export default async function Page() {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  await dbConnect();
-  const userDB = await User.findOne({ kindeAuthId: user.id });
-  const candidate = await Candidate.findById(userDB.candidateId);
+  let candidate;
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    await dbConnect();
+    const userDB = await User.findOne({ kindeAuthId: user.id });
+    candidate = await Candidate.findById(userDB.candidateId);
+  } catch (error) {
+    console.error("Error fetching user or candidate details:", error);
+  }
 
   // Create a map of job IDs to their scores
   const jobScores = {};

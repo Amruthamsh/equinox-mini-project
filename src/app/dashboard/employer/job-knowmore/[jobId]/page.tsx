@@ -6,17 +6,20 @@ import MatchedCandidates from "@/components/Employer/MatchedCandidates";
 import Image from "next/image";
 
 async function page({ params: { jobId } }) {
-  const job = await Job.findById(jobId);
+  let job;
+  try {
+    job = await Job.findById(jobId);
+  } catch (error) {
+    console.error("Error fetching user or candidate details:", error);
+  }
 
   return (
     <div className="font-Poppins bg-black-100 text-white h-full z-10 max-w-7xl mx-auto ">
       <div className="relative">
-        <Image
+        <img
           src="/grid.svg"
           alt="grid"
           className="w-full h-full opacity-80 absolute inset-0"
-          width={1920}
-          height={1080}
         />
         <Link
           href="/dashboard/employer"
