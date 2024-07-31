@@ -5,12 +5,8 @@ import Link from "next/link";
 import MatchedCandidates from "@/components/Employer/MatchedCandidates";
 
 async function page({ params: { jobId } }) {
-  let job = null;
-  try {
-    job = await Job.findById(jobId);
-  } catch (error) {
-    console.error("Error fetching user or candidate details:", error);
-  }
+  const db = await dbConnect();
+  const job = await Job.findById(jobId);
 
   return (
     <div className="font-Poppins bg-black-100 text-white h-full z-10 max-w-7xl mx-auto ">

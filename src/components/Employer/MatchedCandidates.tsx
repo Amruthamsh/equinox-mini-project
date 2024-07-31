@@ -5,7 +5,7 @@ import { Candidate } from "@/models/candidate-model";
 import Image from "next/image";
 
 const MatchedCandidates = async ({ props: jobId }) => {
-  const db = await dbConnect();
+  await dbConnect();
   const job = await Job.findById(jobId);
 
   const agg = [
@@ -133,12 +133,10 @@ const MatchedCandidates = async ({ props: jobId }) => {
             className="bg-white/10 hover:scale-105 transition duration-300 ease-in-out cursor-pointer p-8 rounded-xl flex flex-col justify-between"
           >
             <div>
-              <Image
+              <img
                 src={candidate.picture || "/exp1.svg"}
                 alt=""
                 className="h-20 mx-auto rounded-full mb-2"
-                width={1980}
-                height={1080}
               />
               <h4 className="uppercase text-xl font-bold">{candidate.name}</h4>
               <p className="text-sm leading-7 my-3 font-light opacity-50">
