@@ -10,7 +10,7 @@ const EmployerAuthDetail = async () => {
     <div className="flex place-content-between pb-10 mt-4">
       <div className="flex flex-row gap-3 items-center">
         <Image
-          src={user.picture}
+          src={user?.picture}
           alt="User profile picture"
           width={50}
           height={50}

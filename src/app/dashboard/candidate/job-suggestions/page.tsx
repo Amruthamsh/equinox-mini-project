@@ -11,7 +11,7 @@ export default async function Page() {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
     await dbConnect();
-    const userDB = await User.findOne({ kindeAuthId: user.id! });
+    const userDB = await User.findOne({ kindeAuthId: user.id });
     candidate = await Candidate.findById(userDB.candidateId);
   } catch (error) {
     console.error("Error fetching user or candidate details:", error);

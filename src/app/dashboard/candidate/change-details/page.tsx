@@ -1,4 +1,4 @@
-import React from "react";
+import React, { use } from "react";
 import { dbConnect } from "@/lib/mongo";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import User from "@/models/user-model";
@@ -14,8 +14,9 @@ const Page = async () => {
     const { getUser } = getKindeServerSession();
     user = await getUser();
     await dbConnect();
-    userDB = await User.findOne({ kindeAuthId: user.id! });
-    candidate = await Candidate.findById(userDB.candidateId);
+
+    if (user) userDB = await User.findOne({ kindeAuthId: user.id });
+    if (userDB) candidate = await Candidate.findById(userDB.candidateId);
   } catch (error) {
     console.error("Error fetching user or candidate details:", error);
   }
