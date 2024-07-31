@@ -5,24 +5,18 @@ import { Candidate } from "@/models/candidate-model";
 import User from "@/models/user-model";
 
 const ResumePlain = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
   let pdfText = "";
-
-  try {
-    const { getUser } = getKindeServerSession();
-    const user = await getUser();
-
-    if (!user) {
-      pdfText = "This is a placeholder for the PDF text. User not found";
-    } else {
-      pdfText = "This is a placeholder for the PDF text. User found";
-      await dbConnect();
-      const userDB = await User.findOne({ kindeAuthId: user.id });
-      const candidate = await Candidate.findById(userDB.candidateId);
-      pdfText = candidate.resume_str;
-    }
-  } catch (error) {
-    console.error("Error loading candidate details:", error);
-    return null;
+  if (!user) {
+    pdfText = "This is a placeholder for the PDF text. User not found";
+    return <div>Not yet Signed in</div>;
+  } else {
+    pdfText = "This is a placeholder for the PDF text. User found";
+    await dbConnect();
+    const userDB = await User.findOne({ kindeAuthId: user.id });
+    const candidate = await Candidate.findById(userDB.candidateId);
+    pdfText = candidate.resume_str;
   }
 
   return (

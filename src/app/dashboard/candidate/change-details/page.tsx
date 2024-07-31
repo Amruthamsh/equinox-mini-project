@@ -1,38 +1,34 @@
-import React, { use } from "react";
 import { dbConnect } from "@/lib/mongo";
+import React from "react";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import User from "@/models/user-model";
 import { Candidate } from "@/models/candidate-model";
 import { redirect } from "next/navigation";
 
-const Page = async () => {
-  let user = null,
-    userDB = null,
-    candidate = null;
-
-  try {
-    const { getUser } = getKindeServerSession();
-    user = await getUser();
-    await dbConnect();
-
-    if (user) userDB = await User.findOne({ kindeAuthId: user.id });
-    if (userDB) candidate = await Candidate.findById(userDB.candidateId);
-  } catch (error) {
-    console.error("Error fetching user or candidate details:", error);
+const page = async () => {
+  const { getUser } = getKindeServerSession();
+  const user = await getUser();
+  if (!user) {
+    return <div>Not yet Signed in</div>;
   }
+  await dbConnect();
+  const userDB = await User.findOne({ kindeAuthId: user.id });
+  const candidateId = userDB.candidateId;
+  const candidate = await Candidate.findById(candidateId);
 
   async function handleSubmit(formData: FormData) {
     "use server";
+    await dbConnect();
+    const userDB = await User.findOne({ kindeAuthId: user.id });
+    const candidateId = userDB.candidateId;
+    console.log(formData.get("industry"));
     try {
-      await dbConnect();
-      const userDB = await User.findOne({ kindeAuthId: user.id! });
-      const candidateId = userDB.candidateId;
-
       const body = {
         $set: {
           title: formData.get("title"),
           summary: formData.get("summary"),
           yearsOfExperience: formData.get("yearsOfExperience"),
+          industry: formData.get("industry"),
           location: formData.get("location"),
           preferences: {
             jobType: formData.get("jobType"),
@@ -41,17 +37,18 @@ const Page = async () => {
       };
 
       await Candidate.updateOne({ _id: candidateId }, body);
-      redirect("/dashboard/candidate/job-suggestions");
     } catch (error) {
-      console.error("Error updating candidate details:", error);
+      console.error("Error in creating job", error);
     }
+
+    redirect("/dashboard/candidate/job-suggestions");
   }
 
   return (
-    <div className="overflow-auto mt-2 max-h-full p-4 border border-gray-400 rounded">
+    <div className="overflow-auto mt-2 max-h-full p-4 border border-gray-400 rounded ">
       <form action={handleSubmit}>
-        <div className="flex-col flex relative mb-5 w-full">
-          <label htmlFor="title" className="mr-5">
+        <div className="flex-col flex relative  mb-5 w-full">
+          <label htmlFor="title" className="mr-5 ">
             Title:
           </label>
           <input
@@ -59,11 +56,30 @@ const Page = async () => {
             name="title"
             id="title"
             required={true}
-            defaultValue={candidate?.title}
-            className="lg:w-2/3 sm:w-full p-1 rounded-md dark:bg-slate-700"
+            defaultValue={candidate.title}
+            contentEditable={true}
+            className="lg:w-2/3 sm:w-full  p-1 rounded-md dark:bg-slate-700"
           />
         </div>
-        <div className="flex-col row-span-3 my-4 w-full relative mb-5">
+        <div className="flex-col flex relative  mb-5 w-full">
+          <label htmlFor="title" className="mr-5 ">
+            Industry:
+          </label>
+          <select
+            name="industry"
+            id="industry"
+            defaultValue={candidate.industry}
+            className="w-36 py-1 px-2 rounded-md"
+          >
+            <option value="IT">IT</option>
+            <option value="Defence">Defence</option>
+            <option value="Healthcare">Healthcare</option>
+            <option value="Banking">Banking</option>
+            <option value="Service">Service</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div className="flex-col row-span-3 my-4 w-full relative mb-5 ">
           <label htmlFor="summary" className="mr-5 flex">
             Summary:
           </label>
@@ -71,7 +87,8 @@ const Page = async () => {
             name="summary"
             id="summary"
             required={true}
-            defaultValue={candidate?.summary}
+            contentEditable={true}
+            defaultValue={candidate.summary}
             className="rounded-md lg:w-2/3 sm:w-full h-32 p-2 dark:bg-slate-700 resize-none"
           ></textarea>
         </div>
@@ -84,7 +101,8 @@ const Page = async () => {
             name="yearsOfExperience"
             id="yearsOfExperience"
             required={true}
-            defaultValue={candidate?.yearsOfExperience}
+            defaultValue={candidate.yearsOfExperience}
+            contentEditable={true}
             className="w-12 dark:bg-slate-700 pl-2 rounded-md"
           />
         </div>
@@ -97,24 +115,27 @@ const Page = async () => {
             name="location"
             id="location"
             required={true}
-            defaultValue={candidate?.location}
+            defaultValue={candidate.location}
+            contentEditable={true}
             className="w-72 py-1 px-2 rounded-md dark:bg-slate-700"
           />
         </div>
+
         <div className="mb-5">
-          <label htmlFor="jobType" className="mr-5">
+          <label htmlFor="title" className="mr-5">
             Job Type:
           </label>
           <select
             name="jobType"
             id="jobType"
-            defaultValue={candidate?.preferences?.jobType}
+            defaultValue={candidate.preferences.jobType}
           >
             <option value="full-time">Full Time</option>
             <option value="part-time">Part Time</option>
             <option value="contract">Contract</option>
           </select>
         </div>
+
         <input
           type="submit"
           className="bg-slate-700 px-3 font-semibold hover:text-pink-600 hover:bg-white hover:cursor-pointer rounded-md p-1.5"
@@ -125,4 +146,4 @@ const Page = async () => {
   );
 };
 
-export default Page;
+export default page;
