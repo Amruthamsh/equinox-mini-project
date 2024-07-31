@@ -6,12 +6,20 @@ import User from "@/models/user-model";
 
 export default async function Page() {
   //First Get Key Resume details from the database and store it in the form input values
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-  await dbConnect();
-  const userDB = await User.findOne({ kindeAuthId: user.id });
-  const candidate = await Candidate.findById(userDB.candidateId);
-  const resumeDetails = candidate?.toJSON();
+
+  let resumeDetails = null;
+
+  try {
+    const { getUser } = getKindeServerSession();
+    const user = await getUser();
+    await dbConnect();
+    const userDB = await User.findOne({ kindeAuthId: user.id });
+    const candidate = await Candidate.findById(userDB.candidateId);
+    resumeDetails = candidate?.toJSON();
+  } catch (e) {
+    console.error("Error loading candidate details:", e);
+    return null;
+  }
 
   return (
     <>

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const getIndustryImage = (industry) => {
   const images = {
@@ -64,10 +65,12 @@ const JobCard = ({ title, text, industry, date, jobId }) => {
       </div>
       <div className="flex flex-col items-center justify-between mx-2 relative">
         <div className="w-full h-full rounded-md brightness-100 invert">
-          <img
+          <Image
             src={getIndustryImage(industry)}
             alt={industry}
             className="w-32 h-32 object-cover rounded-md"
+            width={1980}
+            height={1080}
           />
         </div>
         <Link

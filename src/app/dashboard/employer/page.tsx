@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
@@ -8,33 +9,6 @@ import { dbConnect } from "@/lib/mongo";
 import User from "@/models/user-model";
 import DisplayJobCards from "@/components/Employer/DisplayJobCards";
 import { Employer } from "@/models/employer-model";
-
-/*
-
-const getEmployerDetails = async (kindeId: String) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/employer/${kindeId}`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch employer details: ${response.status}`);
-    }
-
-    const employer = await response.json();
-
-    console.log("Employer details:", employer);
-
-    return employer;
-  } catch (error) {
-    console.error("Error loading employer details:", error);
-    return null; // or throw an error
-  }
-};
-*/
 
 const getEmployerDetails = async (kindeId: String) => {
   try {
@@ -77,10 +51,12 @@ const page = async () => {
     <>
       <div className="bg-gradient-to-r from-black-100 to-slate-950 pb-[300px] py-2 h-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-          <img
+          <Image
             src="/grid.svg"
             alt="grid"
             className="w-screen h-96 opacity-80 absolute inset-0"
+            width={1920}
+            height={1080}
           />
 
           <div className="flex flex-row pt-14 place-content-between">

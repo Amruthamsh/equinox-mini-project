@@ -8,32 +8,6 @@ import { dbConnect } from "@/lib/mongo";
 import { Candidate } from "@/models/candidate-model";
 import User from "@/models/user-model";
 
-/*
-const getCandidateDetails = async (kindeId: String) => {
-  try {
-    const response = await fetch(
-      `http://localhost:3000/api/candidate/${kindeId}`,
-      {
-        cache: "no-store",
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch candidate details: ${response.status}`);
-    }
-
-    const candidate = await response.json();
-
-    console.log("Candidate details:", candidate);
-
-    return candidate;
-  } catch (error) {
-    console.error("Error loading candidate details:", error);
-    return null;
-  }
-};
-*/
-
 const getCandidateDetails = async (kindeId: String) => {
   try {
     await dbConnect();
