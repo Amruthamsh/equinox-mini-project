@@ -134,7 +134,7 @@ const MatchedCandidates = async ({ props: jobId }) => {
           >
             <div>
               <Image
-                src={candidate.picture || "/exp1.svg"}
+                src={candidate?.picture || "/exp1.svg"}
                 alt=""
                 className="h-20 mx-auto rounded-full mb-2"
                 width={1980}

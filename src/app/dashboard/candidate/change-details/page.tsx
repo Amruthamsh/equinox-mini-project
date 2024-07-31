@@ -12,7 +12,7 @@ const Page = async () => {
     const { getUser } = getKindeServerSession();
     user = await getUser();
     await dbConnect();
-    userDB = await User.findOne({ kindeAuthId: user.id });
+    userDB = await User.findOne({ kindeAuthId: user.id! });
     candidate = await Candidate.findById(userDB.candidateId);
   } catch (error) {
     console.error("Error fetching user or candidate details:", error);
@@ -22,7 +22,7 @@ const Page = async () => {
     "use server";
     try {
       await dbConnect();
-      const userDB = await User.findOne({ kindeAuthId: user.id });
+      const userDB = await User.findOne({ kindeAuthId: user.id! });
       const candidateId = userDB.candidateId;
 
       const body = {
