@@ -3,10 +3,9 @@ import React from "react";
 import Job from "@/models/job-model";
 import Link from "next/link";
 import MatchedCandidates from "@/components/Employer/MatchedCandidates";
-import Image from "next/image";
 
 async function page({ params: { jobId } }) {
-  let job;
+  let job = null;
   try {
     job = await Job.findById(jobId);
   } catch (error) {

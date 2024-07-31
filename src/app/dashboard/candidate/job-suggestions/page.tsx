@@ -6,7 +6,7 @@ import { Candidate } from "@/models/candidate-model";
 import User from "@/models/user-model";
 
 export default async function Page() {
-  let candidate;
+  let candidate = null;
   try {
     const { getUser } = getKindeServerSession();
     const user = await getUser();
