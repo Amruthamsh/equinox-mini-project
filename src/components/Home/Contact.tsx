@@ -18,9 +18,9 @@ const Contact = () => {
           />
         </div>
 
-        <div className="flex flex-col items-center relative">
+        <div className="flex flex-col items-center relative ">
           <h1 className="text-5xl">Contact us</h1>
-          <p className="text-white-200 md:mt-5 w-3/4 my-5 text-center">
+          <p className="text-white-200 md:mt-5 max-w-2xl my-5 text-center">
             At Equinox, we're revolutionizing job search with our advanced
             matching algorithm. Using AI and data-driven insights, we connect
             employers with top candidates efficiently. Whether you're a job

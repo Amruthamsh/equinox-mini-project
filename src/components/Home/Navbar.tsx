@@ -8,13 +8,16 @@ const Navbar = ({}: Props) => {
   return (
     <nav className="sticky-navbar top-0">
       <div className="flex flex-row place-content-between z-10">
-        <div className="justify-start w-1/2 flex gap-4 lg:gap-10 my-4">
-          <Link href={"#about"} className="hover:underline underline-offset-2 ">
+        <div className="justify-start flex w-1/2 gap-4 lg:gap-10 my-4">
+          <Link
+            href={"#about"}
+            className="hover:underline underline-offset-2 hidden sm:inline"
+          >
             About us
           </Link>
           <Link
             href={"#contact"}
-            className="hover:underline underline-offset-2 "
+            className="hover:underline underline-offset-2 hidden sm:inline"
           >
             Contact us
           </Link>
