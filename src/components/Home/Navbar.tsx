@@ -6,13 +6,24 @@ type Props = {};
 
 const Navbar = ({}: Props) => {
   return (
-    <nav className="sticky-navbar top-0 left-0">
-      <div className="flex flex-row place-content-between my-4 z-10">
-        <div className="max-w-[70vw] md:max-w-1xl lg:max-w-[40vw] justify-start flex gap-20 cursor-pointer ">
-          <Link href={"#about"}>About us</Link>
-          <Link href={"#contact"}>Contact us</Link>
+    <nav className="sticky-navbar top-0">
+      <div className="flex flex-row place-content-between z-10">
+        <div className="justify-start w-1/2 flex gap-4 lg:gap-10 my-4">
+          <Link href={"#about"} className="hover:underline underline-offset-2 ">
+            About us
+          </Link>
+          <Link
+            href={"#contact"}
+            className="hover:underline underline-offset-2 "
+          >
+            Contact us
+          </Link>
         </div>
-        <HomePageSignIn />
+        <div className="w-1/2">
+          <div className="flex flex-row gap-1 justify-end align-middle">
+            <HomePageSignIn />
+          </div>
+        </div>
       </div>
     </nav>
   );

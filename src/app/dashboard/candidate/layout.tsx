@@ -4,9 +4,9 @@ import CandidateAuthDetail from "@/components/Candidate/CandidateAuthDetail";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div className="flex h-screen md:flex-row md:overflow-hidden">
-      <div className="hidden md:flex md:w-64 flex-shrink-0 flex-col flex-wrap dark:bg-slate-900">
+      <div className="w-18 md:flex md:w-64 flex-shrink-0 flex-col flex-wrap dark:bg-slate-900">
         <div className="flex justify-between flex-col h-full">
-          <div className="text-center p-4">EQUINOX</div>
+          <div className="text-center p-4 hidden md:inline">EQUINOX</div>
           <div>
             <SideNav />
           </div>

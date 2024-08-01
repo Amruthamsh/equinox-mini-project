@@ -29,24 +29,33 @@ const HomePageSignIn = async () => {
     }
 
     return (
-      <div className="max-w-[65vw] md:max-w-1xl lg:max-w-[40vw] flex justify-end gap-20 cursor-pointer">
+      <div className="flex justify-end gap-10 lg:gap-10 my-3">
         <div className="relative inline-flex h-8 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
           <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
           <span className="inline-flex z-10 h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
             <Link href={`/dashboard/${dashboard_string}`}>Dashboard</Link>
           </span>
         </div>
-        <LogoutLink postLogoutRedirectURL="/">Log out</LogoutLink>
+        <LogoutLink
+          postLogoutRedirectURL="/"
+          className="hover:underline underline-offset-2 my-1"
+        >
+          Log out
+        </LogoutLink>
       </div>
     );
   }
   return (
-    <div className="max-w-[65vw] md:max-w-1xl lg:max-w-[40vw] flex justify-end gap-20 cursor-pointer">
+    <div className="flex justify-end gap-3 lg:gap-10 my-3">
+      <p className="text-md text-nowrap sm:hidden my-1">Sign in</p>
       <div className="relative inline-flex h-8 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
         <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
         <span className="inline-flex z-10 h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
           <LoginLink postLoginRedirectURL="/dashboard/candidate">
-            Candidate Sign in
+            <h3 className="sm:hidden lg:hidden md:hidden">Candidate</h3>
+            <h3 className="hidden sm:inline md:inline lg:inline text-nowrap">
+              Candidate Sign in
+            </h3>
           </LoginLink>
         </span>
       </div>
@@ -54,7 +63,10 @@ const HomePageSignIn = async () => {
         <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
         <span className="inline-flex z-10 h-full w-full cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
           <LoginLink postLoginRedirectURL="/dashboard/employer">
-            Employer Sign in
+            <h3 className="sm:hidden lg:hidden md:hidden">Employer</h3>
+            <h3 className="hidden sm:inline md:inline lg:inline text-nowrap">
+              Employer Sign in
+            </h3>
           </LoginLink>
         </span>
       </div>

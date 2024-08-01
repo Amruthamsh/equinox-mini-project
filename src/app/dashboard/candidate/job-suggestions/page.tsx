@@ -29,7 +29,7 @@ export default async function Page() {
   return (
     <>
       <div className="font-bold text-2xl mb-4">Job Suggestions</div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         {jobs.map((job) => (
           <div key={job._id} className="p-4 border border-white rounded-md">
             <div className="flex flex-row place-content-between items-center mb-3">

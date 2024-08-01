@@ -71,10 +71,9 @@ const page = async () => {
 
   return (
     <>
-      <div>Candidate page</div>
-      <div className="text-white">{user?.given_name}</div>
-      <div></div>
-      <LogoutLink>Log Out</LogoutLink>
+      <div className="text-xl">
+        Keep Looking! When a recruiter responds, we'll alert here
+      </div>
     </>
   );
 };

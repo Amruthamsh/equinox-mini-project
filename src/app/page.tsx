@@ -17,7 +17,7 @@ export default function Home() {
         <Contact />
       </div>
       <div className="text-center text-xl p-2 pt-4 bg-black w-screen">
-        Designed by{" "}
+        Developed by{" "}
         <Link
           href="https://in.linkedin.com/in/amruthamsh-a-0573a822a"
           className="text-blue-400 hover:text-violet-500 underline underline-offset-2"

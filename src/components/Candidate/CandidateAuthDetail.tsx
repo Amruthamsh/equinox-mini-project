@@ -18,7 +18,7 @@ const CandidateAuthDetail = async () => {
         height={50}
         className="rounded-full"
       />
-      <div className="text-white">Hi, {user?.given_name}</div>
+      <div className="text-white hidden md:inline">Hi, {user?.given_name}</div>
 
       <div>
         <LogoutLink>Log Out</LogoutLink>
