@@ -87,8 +87,8 @@ const MatchedCandidates = async ({ props: jobId }) => {
   try {
     console.log(candidates);
 
+    // Update the existing job recommendation if it exists
     for (const candidate of candidates) {
-      // Update the existing job recommendation if it exists
       await Candidate.updateOne(
         { _id: candidate._id, "jobsRecommended.jobId": jobId },
         {

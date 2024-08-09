@@ -39,6 +39,7 @@ export default async function uploadResume(data: FormData) {
       9. NEVER Input missing values
       
       The JSON format for the Candidate entity is as follows:
+      {
         title: string,
         skills: string[],
         summary: string,
@@ -54,6 +55,7 @@ export default async function uploadResume(data: FormData) {
             degree: string,
           },
         ],
+      }
 
       The output should STRICTLY BE in JSON FORMAT as shown above.
       
