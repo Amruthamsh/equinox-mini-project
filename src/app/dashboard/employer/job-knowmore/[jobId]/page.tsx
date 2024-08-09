@@ -9,7 +9,7 @@ async function page({ params: { jobId } }) {
   const job = await Job.findById(jobId);
 
   return (
-    <div className="font-Poppins bg-black-100 text-white h-full z-10 max-w-7xl mx-auto ">
+    <div className="font-Poppins text-white h-full z-10 max-w-7xl mx-auto ">
       <div className="relative">
         <img
           src="/grid.svg"
